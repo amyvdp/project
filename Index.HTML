@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SilverConnect | Empowering Seniors with Information Literacy</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link to your local CSS stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Accessibility Control Bar -->
+    <aside class="accessibility-bar" aria-label="Accessibility Controls">
+        <div class="container accessibility-container">
+            <span class="accessibility-title"><i class="fa-solid fa-universal-access"></i> Accessibility:</span>
+            <div class="accessibility-buttons">
+                <button id="btn-decrease-font" class="acc-btn" title="Decrease Text Size">A -</button>
+                <button id="btn-reset-font" class="acc-btn" title="Reset Text Size">Normal</button>
+                <button id="btn-increase-font" class="acc-btn" title="Increase Text Size">A +</button>
+                <button id="btn-toggle-theme" class="acc-btn" title="Toggle High Contrast Dark Mode"><i class="fa-solid fa-moon"></i> High Contrast</button>
+                <button id="btn-read-aloud" class="acc-btn highlight-acc" title="Read Page Aloud"><i class="fa-solid fa-volume-high"></i> Listen to Page</button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="#home" class="logo" onclick="navigateTo('home')">
+                <i class="fa-solid fa-shield-halved logo-icon"></i>
+                <span>Silver<span class="logo-accent">Connect</span></span>
+            </a>
+
+            <!-- Search Bar -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="global-search" placeholder="Search safety topics..." aria-label="Search safety topics">
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active" onclick="navigateTo('home')"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#about" class="nav-link" onclick="navigateTo('about')"><i class="fa-solid fa-book-open"></i> Info Ethics</a>
+                <a href="#safety" class="nav-link" onclick="navigateTo('safety')"><i class="fa-solid fa-user-shield"></i> Stay Safe</a>
+                <a href="#factcheck" class="nav-link" onclick="navigateTo('factcheck')"><i class="fa-solid fa-newspaper"></i> Fact Check</a>
+                <a href="#linkchecker" class="nav-link" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-robot"></i> Scam Checker</a>
+                <a href="#skills" class="nav-link" onclick="navigateTo('skills')"><i class="fa-solid fa-laptop"></i> Digital Skills</a>
+                <a href="#quiz" class="nav-link" onclick="navigateTo('quiz')"><i class="fa-solid fa-circle-question"></i> Quiz</a>
+                <a href="#resources" class="nav-link" onclick="navigateTo('resources')"><i class="fa-solid fa-folder-open"></i> Resources</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Sections -->
+    <main id="main-content" class="container">
+
+        <!-- 1. HOME SECTION -->
+        <section id="page-home" class="page-section active-page">
+            <div class="hero-card">
+                <div class="hero-content">
+                    <span class="badge"><i class="fa-solid fa-graduation-cap"></i> INL 370 Project</span>
+                    <h1>Navigate the Digital World with Confidence & Safety</h1>
+                    <p class="hero-subtitle">SilverConnect empowers older adults to access, evaluate, and share digital information safely and responsibly.</p>
+                    <div class="hero-cta-group">
+                        <button class="btn btn-primary btn-large" onclick="navigateTo('safety')"><i class="fa-solid fa-shield-heart"></i> Start Learning Now</button>
+                        <button class="btn btn-secondary btn-large" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-wand-magic-sparkles"></i> Check a Link for Scams</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Progress Tracker -->
+            <div class="card progress-card">
+                <h2><i class="fa-solid fa-chart-line"></i> Your Learning Progress</h2>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="learning-progress-bar" style="width: 0%;">0%</div>
+                </div>
+                <p id="progress-status-text">0 of 4 Modules Explored</p>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT SECTION -->
+        <section id="page-about" class="page-section">
+            <div class="card">
+                <h1>Understanding Information Literacy & Ethics</h1>
+                <p>Information literacy is the ability to find, evaluate, use, and share information safely and ethically.</p>
+            </div>
+        </section>
+
+        <!-- 3. SAFETY SECTION -->
+        <section id="page-safety" class="page-section">
+            <div class="card">
+                <h1>Stay Safe Online</h1>
+                <p>Learn how to spot phishing emails, SMS scams, and WhatsApp impersonation attempts.</p>
+            </div>
+        </section>
+
+        <!-- 4. FACT CHECK SECTION -->
+        <section id="page-factcheck" class="page-section">
+            <div class="card">
+                <h1>Spotting Fake News & Misinformation</h1>
+                <p>Use the CRAAP method: Check Currency, Relevance, Authority, Accuracy, and Purpose.</p>
+            </div>
+        </section>
+
+        <!-- 5. SCAM LINK CHECKER -->
+        <section id="page-linkchecker" class="page-section">
+            <div class="card scanner-card">
+                <h1>AI Scam Link Checker</h1>
+                <div class="input-group">
+                    <input type="text" id="link-input" class="form-input" placeholder="Paste link or text here...">
+                    <button class="btn btn-primary" onclick="analyzeLink()">Analyze Link</button>
+                </div>
+                <div id="scan-loading" class="scan-loading hidden">Analyzing security...</div>
+                <div id="scan-result" class="scan-result hidden">
+                    <div id="result-status-badge" class="status-badge">STATUS</div>
+                    <h3 id="result-title">Result</h3>
+                    <p id="result-explanation">Explanation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. DIGITAL SKILLS -->
+        <section id="page-skills" class="page-section">
+            <div class="card">
+                <h1>Digital Skills Tutorials</h1>
+                <p>Simple guides for Google Search, WhatsApp, Email, and Safe Shopping.</p>
+            </div>
+        </section>
+
+        <!-- 7. QUIZ SECTION -->
+        <section id="page-quiz" class="page-section">
+            <div class="card">
+                <h1>Safety & Literacy Quiz</h1>
+                <div id="quiz-container">
+                    <span id="quiz-question-number">Question 1</span>
+                    <h2 id="quiz-question-text">Question text...</h2>
+                    <div id="quiz-options-container" class="options-container"></div>
+                    <div id="quiz-feedback-box" class="quiz-feedback hidden">
+                        <div id="feedback-status">Status</div>
+                        <p id="feedback-explanation">Explanation</p>
+                        <button class="btn btn-primary" onclick="nextQuestion()">Next Question</button>
+                    </div>
+                </div>
+                <div id="quiz-results-container" class="results-container hidden">
+                    <h2>Quiz Completed!</h2>
+                    <p>Score: <span id="final-score">0</span> / 10</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. RESOURCES SECTION -->
+        <section id="page-resources" class="page-section">
+            <div class="card">
+                <h1>Resources & FAQs</h1>
+                <p>Downloadable safety checklists and quick reference guides.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Link to your local JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

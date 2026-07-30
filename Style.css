@@ -1,0 +1,130 @@
+:root {
+    --primary-color: #1a56db;
+    --secondary-color: #0d9488;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-color: #0f172a;
+    --border-color: #cbd5e1;
+    --font-scale: 1;
+}
+
+body.dark-mode {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f8fafc;
+    --border-color: #475569;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: calc(18px * var(--font-scale));
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 15px 0;
+}
+
+.accessibility-bar {
+    background: #0f172a;
+    color: white;
+    padding: 10px;
+}
+
+.accessibility-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.acc-btn {
+    background: #334155;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.main-header {
+    background: var(--card-bg);
+    border-bottom: 2px solid var(--border-color);
+    padding: 15px 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 8px 12px;
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+.nav-link.active, .nav-link:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    padding: 24px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.page-section {
+    display: none;
+}
+
+.page-section.active-page {
+    display: block;
+}
+
+.btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-secondary {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.hidden {
+    display: none !important;
+}
