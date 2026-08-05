@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Link to your local CSS stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style.css">
 </head>
 <body>
 
@@ -32,15 +32,12 @@
     <header class="main-header">
         <div class="container header-container">
             <a href="#home" class="logo" onclick="navigateTo('home')">
-                <i class="fa-solid fa-shield-halved logo-icon"></i>
-                <span>Silver<span class="logo-accent">Connect</span></span>
+                 <img src="logo.png" alt="SilverConnect Logo">
+        
             </a>
 
-            <!-- Search Bar -->
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="global-search" placeholder="Search safety topics..." aria-label="Search safety topics">
-            </div>
+            <!-- Mobile Menu Toggle (visible on small screens only) -->
+            <button class="acc-btn mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰ Menu</button>
 
             <!-- Navigation Links -->
             <nav class="nav-menu" id="nav-menu">
@@ -53,6 +50,12 @@
                 <a href="#quiz" class="nav-link" onclick="navigateTo('quiz')"><i class="fa-solid fa-circle-question"></i> Quiz</a>
                 <a href="#resources" class="nav-link" onclick="navigateTo('resources')"><i class="fa-solid fa-folder-open"></i> Resources</a>
             </nav>
+
+            <!-- Search Bar -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="global-search" placeholder="Search safety topics..." aria-label="Search safety topics">
+            </div>
         </div>
     </header>
 
@@ -149,6 +152,7 @@
                 <div id="quiz-results-container" class="results-container hidden">
                     <h2>Quiz Completed!</h2>
                     <p>Score: <span id="final-score">0</span> / 10</p>
+                    <button class="btn btn-secondary" onclick="resetQuiz()">Retake Quiz</button>
                 </div>
             </div>
         </section>
