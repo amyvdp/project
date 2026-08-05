@@ -43,7 +43,7 @@ const quizData = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // -------------------------------------------------------------
     // 1. ACCESSIBILITY: Font Scaling (Resizing Text)
     // -------------------------------------------------------------
@@ -169,6 +169,14 @@ function navigateTo(pageId) {
     const target = document.getElementById(`page-${pageId}`);
     if (target) target.classList.add('active-page');
 
+    // Highlight the matching nav link
+    const activeLink = document.querySelector(`.nav-link[href="#${pageId}"]`);
+    if (activeLink) activeLink.classList.add('active');
+
+    // Close mobile menu after navigating
+    const navMenu = document.getElementById('nav-menu');
+    if (navMenu) navMenu.classList.remove('mobile-active');
+
     // Stop speech synthesis if user switches pages while listening
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -239,7 +247,7 @@ function renderQuiz() {
 
     qNum.innerText = `Question ${appState.quizIndex + 1} of ${quizData.length}`;
     qText.innerText = q.question;
-    
+
     container.innerHTML = '';
 
     q.options.forEach((opt, idx) => {
@@ -259,7 +267,7 @@ function selectAnswer(chosenIdx) {
     const expText = document.getElementById('feedback-explanation');
 
     if (!feedbackBox || !statusText || !expText) return;
-    
+
     feedbackBox.classList.remove('hidden');
     if (chosenIdx === q.correct) {
         appState.quizScore++;
@@ -281,7 +289,7 @@ function nextQuestion() {
         document.getElementById('quiz-container').classList.add('hidden');
         const resultsBox = document.getElementById('quiz-results-container');
         if (resultsBox) resultsBox.classList.remove('hidden');
-        
+
         const finalScore = document.getElementById('final-score');
         if (finalScore) finalScore.innerText = appState.quizScore;
     }
@@ -294,4 +302,113 @@ function resetQuiz() {
     document.getElementById('quiz-feedback-box').classList.add('hidden');
     document.getElementById('quiz-container').classList.remove('hidden');
     renderQuiz();
+}
+
+
+
+// -------------------------------------------------------------
+// 7. SCAM LINK ANALYZER WITH GOOGLE SAFE BROWSING INTEGRATION
+// -------------------------------------------------------------
+
+// Asynchronous API call to Google Safe Browsing
+async function checkUrlWithGoogleSafeBrowsing(urlToCheck) {
+    const apiKey = 'AIzaSyAZmAZ-q7jHmLIEk_I06miup0cRJyQbujY';
+    const endpoint = `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${apiKey}`;
+
+    const requestBody = {
+        client: {
+            clientId: "silverconnect-app",
+            clientVersion: "1.0.0"
+        },
+        threatInfo: {
+            threatTypes: ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE", "POTENTIALLY_HARMFUL_APPLICATION"],
+            platformTypes: ["ANY_PLATFORM"],
+            threatEntryTypes: ["URL"],
+            threatEntries: [
+                { url: urlToCheck }
+            ]
+        }
+    };
+
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        });
+
+        const data = await response.json();
+
+        // If 'matches' array exists in response, Google has flagged the link as unsafe
+        if (data.matches && data.matches.length > 0) {
+            return { safe: false, threatType: data.matches[0].threatType };
+        } else {
+            return { safe: true };
+        }
+    } catch (error) {
+        console.error("API Scan Error:", error);
+        return { safe: null, error: "Scan service unavailable" };
+    }
+}
+
+// Main function called by the button on index.html
+async function analyzeLink() {
+    const inputField = document.getElementById('link-input');
+    const loadingIndicator = document.getElementById('scan-loading');
+    const resultBox = document.getElementById('scan-result');
+    const badge = document.getElementById('result-status-badge');
+    const title = document.getElementById('result-title');
+    const exp = document.getElementById('result-explanation');
+
+    if (!inputField) return;
+
+    let val = inputField.value.trim();
+
+    if (!val) {
+        alert("Please paste a link or message text first!");
+        return;
+    }
+
+    // Auto-prefix http:// if missing so Google API and URL parsing work correctly
+    if (!val.startsWith('http://') && !val.startsWith('https://')) {
+        val = 'http://' + val;
+    }
+
+    // UI State: Show loading, hide previous results
+    if (loadingIndicator) loadingIndicator.classList.remove('hidden');
+    resultBox.classList.add('hidden');
+
+    // Perform the API scan
+    const apiResult = await checkUrlWithGoogleSafeBrowsing(val);
+
+    // Hide loading
+    if (loadingIndicator) loadingIndicator.classList.add('hidden');
+    resultBox.classList.remove('hidden');
+
+    // Handle results
+    if (apiResult.safe === false) {
+        badge.innerText = "DANGEROUS / MALICIOUS LINK";
+        badge.style.color = "#dc2626";
+        title.innerText = "Threat Detected!";
+        exp.innerText = `Google Safe Browsing has flagged this link as high risk due to ${apiResult.threatType.replace('_', ' ').toLowerCase()}. Do not open this link or share personal information.`;
+    } else if (apiResult.safe === true) {
+        // Run fallback heuristic checks for HTTPS / domain red flags
+        if (!val.startsWith('https://')) {
+            badge.innerText = "UNENCRYPTED SITE";
+            badge.style.color = "#d97706";
+            title.innerText = "Missing HTTPS Encryption";
+            exp.innerText = "Google did not flag this link as malware, but it uses an unencrypted HTTP connection. Avoid entering passwords or credit card details here.";
+        } else {
+            badge.innerText = "NO KNOWN THREATS";
+            badge.style.color = "#16a34a";
+            title.innerText = "Connection & Status Clean";
+            exp.innerText = "This address is encrypted (HTTPS) and passed Google Safe Browsing checks. Always double check that the domain name matches the official corporate brand name.";
+        }
+    } else {
+        // Fallback if API fails or network goes offline
+        badge.innerText = "CHECK COMPLETED WITH CAUTION";
+        badge.style.color = "#d97706";
+        title.innerText = "Offline / Unknown Threat Status";
+        exp.innerText = "Unable to connect to live threat database. Always exercise caution when opening links from unexpected messages.";
+    }
 }
