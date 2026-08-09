@@ -42,13 +42,9 @@
             <!-- Navigation Links -->
             <nav class="nav-menu" id="nav-menu">
                 <a href="#home" class="nav-link active" onclick="navigateTo('home')"><i class="fa-solid fa-house"></i> Home</a>
-                <a href="#about" class="nav-link" onclick="navigateTo('about')"><i class="fa-solid fa-book-open"></i> Info Ethics</a>
-                <a href="#safety" class="nav-link" onclick="navigateTo('safety')"><i class="fa-solid fa-user-shield"></i> Stay Safe</a>
-                <a href="#factcheck" class="nav-link" onclick="navigateTo('factcheck')"><i class="fa-solid fa-newspaper"></i> Fact Check</a>
+                <a href="#about" class="nav-link" onclick="navigateTo('about')"><i class="fa-solid fa-book-open"></i> Information Ethics</a>
+                <a href="#safety" class="nav-link" onclick="navigateTo('safety')"><i class="fa-solid fa-user-shield"></i> Start learning</a>
                 <a href="#linkchecker" class="nav-link" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-robot"></i> Scam Checker</a>
-                <a href="#skills" class="nav-link" onclick="navigateTo('skills')"><i class="fa-solid fa-laptop"></i> Digital Skills</a>
-                <a href="#quiz" class="nav-link" onclick="navigateTo('quiz')"><i class="fa-solid fa-circle-question"></i> Quiz</a>
-                <a href="#resources" class="nav-link" onclick="navigateTo('resources')"><i class="fa-solid fa-folder-open"></i> Resources</a>
             </nav>
 
             <!-- Search Bar -->
@@ -97,14 +93,41 @@
         <!-- 3. SAFETY SECTION -->
         <section id="page-safety" class="page-section">
             <div class="card">
-                <h1>Stay Safe Online</h1>
+                <span class="eyebrow"><i class="fa-solid fa-user-shield"></i> Start Learning</span>
+                <h1>Start Learning Online</h1>
                 <p>Learn how to spot phishing emails, SMS scams, and WhatsApp impersonation attempts.</p>
+            </div>
+            <div class="topic-grid">
+                <div class="card topic-card topic-fact">
+                    <h2><span class="topic-icon"><i class="fa-solid fa-newspaper"></i></span> Fact Check</h2>
+                    <p>Learn how to spot fake news and misinformation.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('factcheck')">Open Fact Check</button>
+                </div>
+
+                <div class="card topic-card topic-skills">
+                    <h2><span class="topic-icon"><i class="fa-solid fa-laptop"></i></span> Digital Skills</h2>
+                    <p>Simple guides for Google Search, WhatsApp, Email, and Safe Shopping.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('skills')">Open Digital Skills</button>
+                </div>
+
+                <div class="card topic-card topic-quiz">
+                    <h2><span class="topic-icon"><i class="fa-solid fa-circle-question"></i></span> Quiz</h2>
+                    <p>Test your safety and literacy knowledge.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('quiz')">Open Quiz</button>
+                </div>
+
+                <div class="card topic-card topic-resources">
+                    <h2><span class="topic-icon"><i class="fa-solid fa-folder-open"></i></span> Resources</h2>
+                    <p>Downloadable safety checklists and quick reference guides.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('resources')">Open Resources</button>
+                </div>
             </div>
         </section>
 
         <!-- 4. FACT CHECK SECTION -->
         <section id="page-factcheck" class="page-section">
             <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('safety')"><i class="fa-solid fa-arrow-left"></i> Back to Stay Safe</button>
                 <h1>Spotting Fake News & Misinformation</h1>
                 <p>Use the CRAAP method: Check Currency, Relevance, Authority, Accuracy, and Purpose.</p>
             </div>
@@ -130,14 +153,41 @@
         <!-- 6. DIGITAL SKILLS -->
         <section id="page-skills" class="page-section">
             <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('safety')"><i class="fa-solid fa-arrow-left"></i> Back to Stay Safe</button>
                 <h1>Digital Skills Tutorials</h1>
                 <p>Simple guides for Google Search, WhatsApp, Email, and Safe Shopping.</p>
+            </div>
+            <div class="card">
+                <h2>How to download Apps </h2>
+                <p>Learn how to use Google playstore and the App store to download apps safely.</p>
+                <button class="btn btn-primary" onclick="navigateTo('apps')">Learn to Download Apps</button>
+            </div>
+            <div class="card">
+                <h2>How to use WhatsApp</h2>
+                <p>Learn how to use WhatsApp to communicate safely and effectively.</p>
+                <button class="btn btn-primary" onclick="navigateTo('whatsapp')">Learn to Use WhatsApp</button>
+            </div>
+            <div class="card">
+                <h2>Writing & Sending Gmail</h2>
+                <p>Learn how to write, send, and reply to emails safely using Gmail.</p>
+                <button class="btn btn-primary" onclick="navigateTo('gmail')">Learn Gmail</button>
+            </div>
+            <div class="card">
+                <h2>How to Use Google Search</h2>
+                <p>Learn how to search the web effectively and spot trustworthy results.</p>
+                <button class="btn btn-primary" onclick="navigateTo('googlesearch')">Learn Google Search</button>
+            </div>
+            <div class="card">
+                <h2>How to Use Facebook</h2>
+                <p>Learn how to connect with family and friends safely on Facebook.</p>
+                <button class="btn btn-primary" onclick="navigateTo('facebook')">Learn Facebook</button>
             </div>
         </section>
 
         <!-- 7. QUIZ SECTION -->
         <section id="page-quiz" class="page-section">
             <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('safety')"><i class="fa-solid fa-arrow-left"></i> Back to Stay Safe</button>
                 <h1>Safety & Literacy Quiz</h1>
                 <div id="quiz-container">
                     <span id="quiz-question-number">Question 1</span>
@@ -160,12 +210,66 @@
         <!-- 8. RESOURCES SECTION -->
         <section id="page-resources" class="page-section">
             <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('safety')"><i class="fa-solid fa-arrow-left"></i> Back to Stay Safe</button>
                 <h1>Resources & FAQs</h1>
                 <p>Downloadable safety checklists and quick reference guides.</p>
             </div>
         </section>
 
+        <!-- 9. DOWNLOADABLE Apps SECTION -->
+        <section id="page-apps" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
+                <h1>Downloadable Apps</h1>
+                <p>Explore and download apps designed for older adults to enhance their digital experience.</p>
+            </div>
+        </section>
+
+        <!-- 10. WHATSAPP SECTION -->
+        <section id="page-whatsapp" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
+                <h1>How to Use WhatsApp</h1>
+                <p>Learn how to use WhatsApp to communicate safely and effectively.</p>
+            </div>
+        </section>
+
+        <!-- 11. GMAIL SECTION -->
+        <section id="page-gmail" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
+                <h1>Writing & Sending Gmail</h1>
+                <p>Learn how to write, send, and reply to emails safely using Gmail.</p>
+            </div>
+        </section>
+
+        <!-- 12. GOOGLE SEARCH SECTION -->
+        <section id="page-googlesearch" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
+                <h1>How to Use Google Search</h1>
+                <p>Learn how to search the web effectively and spot trustworthy results.</p>
+            </div>
+        </section>
+
+        <!-- 13. FACEBOOK SECTION -->
+        <section id="page-facebook" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
+                <h1>How to Use Facebook</h1>
+                <p>Learn how to connect with family and friends safely on Facebook.</p>
+            </div>
+        </section>
+
     </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <span class="footer-title"><i class="fa-solid fa-shield-heart"></i> SilverConnect</span>
+            <p class="footer-note">An INL 370 information literacy project, built to help older adults browse, evaluate, and share information online with confidence.</p>
+        </div>
+    </footer>
 
     <!-- Link to your local JavaScript file -->
     <script src="script.js"></script>

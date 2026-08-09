@@ -42,111 +42,288 @@ const quizData = [
     }
 ];
 
-document.addEventListener('DOMContentLoaded', () => {
+// Page Map
+const pageMap = {
+    home: 'page-home',
+    about: 'page-about',
+    safety: 'page-safety',
+    factcheck: 'page-factcheck',
+    linkchecker: 'page-linkchecker',
+    skills: 'page-skills',
+    quiz: 'page-quiz',
+    resources: 'page-resources',
+    apps: 'page-apps',
+    whatsapp: 'page-whatsapp',
+    gmail: 'page-gmail',
+    googlesearch: 'page-googlesearch',
+    facebook: 'page-facebook'
+};
 
-    // -------------------------------------------------------------
-    // 1. ACCESSIBILITY: Font Scaling (Resizing Text)
-    // -------------------------------------------------------------
-    const btnIncrease = document.getElementById('btn-increase-font');
-    const btnDecrease = document.getElementById('btn-decrease-font');
-    const btnReset = document.getElementById('btn-reset-font');
+let currentPage = 'home';
+let fontSize = 16;
+let highContrast = false;
+let quizIndex = 0;
+let quizScore = 0;
 
-    if (btnIncrease) {
-        btnIncrease.addEventListener('click', () => {
-            appState.fontScale += 0.1;
-            document.documentElement.style.setProperty('--font-scale', appState.fontScale);
-        });
+const quizQuestions = [
+    {
+        question: 'What should you do before clicking a link in a message?',
+        options: ['Click it immediately', 'Verify the sender and URL', 'Share it with everyone', 'Ignore all links'],
+        answer: 1,
+        explanation: 'Always verify the sender and the URL before clicking.'
+    },
+    {
+        question: 'Which source is usually the safest for checking a news story?',
+        options: ['A random social post', 'A trusted news outlet with evidence', 'A forwarded WhatsApp message', 'A fake giveaway ad'],
+        answer: 1,
+        explanation: 'Trusted outlets with evidence are safer than random posts or forwarded messages.'
+    },
+    {
+        question: 'What should you do if a website asks for your password unexpectedly?',
+        options: ['Enter it immediately', 'Close the site and verify the address', 'Send it to a friend', 'Ignore the warning'],
+        answer: 1,
+        explanation: 'Do not enter personal details on unexpected prompts; verify the site first.'
     }
+];
 
-    if (btnDecrease) {
-        btnDecrease.addEventListener('click', () => {
-            if (appState.fontScale > 0.8) {
-                appState.fontScale -= 0.1;
-                document.documentElement.style.setProperty('--font-scale', appState.fontScale);
-            }
-        });
-    }
+document.addEventListener('DOMContentLoaded', init);
 
-    if (btnReset) {
-        btnReset.addEventListener('click', () => {
-            appState.fontScale = 1.0;
-            document.documentElement.style.setProperty('--font-scale', 1.0);
-        });
-    }
+function init() {
+    const sections = document.querySelectorAll('.page-section');
+    sections.forEach((section) => {
+        const shouldShow = section.id === 'page-home';
+        section.hidden = !shouldShow;
+        section.classList.toggle('active-page', shouldShow);
+    });
 
-    // -------------------------------------------------------------
-    // 2. ACCESSIBILITY: High Contrast / Dark Mode Toggle
-    // -------------------------------------------------------------
-    const btnTheme = document.getElementById('btn-toggle-theme');
-    if (btnTheme) {
-        btnTheme.addEventListener('click', () => {
-            appState.darkMode = !appState.darkMode;
-            document.body.classList.toggle('dark-mode', appState.darkMode);
-        });
-    }
-
-    // -------------------------------------------------------------
-    // 3. ACCESSIBILITY: Read Aloud / Text-to-Speech Engine
-    // -------------------------------------------------------------
-    let isReading = false;
-    const readBtn = document.getElementById('btn-read-aloud');
-
-    if (readBtn) {
-        readBtn.addEventListener('click', () => {
-            if ('speechSynthesis' in window) {
-                if (isReading) {
-                    window.speechSynthesis.cancel();
-                    isReading = false;
-                    readBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen to Page';
-                } else {
-                    const activePage = document.querySelector('.page-section.active-page');
-                    if (activePage) {
-                        const textToRead = activePage.innerText;
-                        const utterance = new SpeechSynthesisUtterance(textToRead);
-                        utterance.rate = 0.9; // Slower rate for clear senior listening
-
-                        utterance.onend = () => {
-                            isReading = false;
-                            readBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen to Page';
-                        };
-
-                        window.speechSynthesis.speak(utterance);
-                        isReading = true;
-                        readBtn.innerHTML = '<i class="fa-solid fa-square"></i> Stop Listening';
-                    }
-                }
-            } else {
-                alert('Text-to-Speech is not supported on this browser.');
-            }
-        });
-    }
-
-    // -------------------------------------------------------------
-    // 4. SEARCH FILTER LOGIC
-    // -------------------------------------------------------------
-    const searchInput = document.getElementById('global-search');
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            const cards = document.querySelectorAll('.card, .topic-card, .feature-card');
-
-            cards.forEach(card => {
-                const text = card.innerText.toLowerCase();
-                if (query === '' || text.includes(query)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    }
-
-    // -------------------------------------------------------------
-    // 5. LOAD DAILY SAFETY TIP & INITIALIZE QUIZ
-    // -------------------------------------------------------------
-    loadDailyTip();
+    setActiveNavLink('home');
+    updateProgress();
+    bindAccessibilityButtons();
     renderQuiz();
-});
+    applyFontSize();
+    applyTheme();
+
+    window.navigateTo = navigateTo;
+    window.toggleMobileMenu = toggleMobileMenu;
+    window.analyzeLink = analyzeLink;
+    window.nextQuestion = nextQuestion;
+    window.resetQuiz = resetQuiz;
+}
+
+function navigateTo(page) {
+    const sectionId = pageMap[page];
+    if (!sectionId) return;
+
+    currentPage = page;
+
+    const sections = document.querySelectorAll('.page-section');
+    sections.forEach((section) => {
+        const shouldShow = section.id === sectionId;
+        section.hidden = !shouldShow;
+        section.classList.toggle('active-page', shouldShow);
+    });
+
+    setActiveNavLink(page);
+    updateProgress();
+
+    if (page === 'quiz') {
+        renderQuiz();
+    }
+}
+
+function setActiveNavLink(page) {
+    document.querySelectorAll('.nav-link').forEach((link) => {
+        const onclick = link.getAttribute('onclick') || '';
+        link.classList.toggle('active', onclick.includes(`'${page}'`));
+    });
+}
+
+function toggleMobileMenu() {
+    const nav = document.getElementById('nav-menu');
+    if (!nav) return;
+    nav.classList.toggle('open');
+    nav.style.display = nav.classList.contains('open') ? 'flex' : '';
+}
+
+function updateProgress() {
+    const modules = Object.keys(pageMap);
+    let visited = [];
+
+    try {
+        visited = JSON.parse(localStorage.getItem('visitedPages') || '[]');
+    } catch (e) {
+        visited = [];
+    }
+
+    if (!Array.isArray(visited)) {
+        visited = [];
+    }
+
+    if (!visited.includes(currentPage)) {
+        visited.push(currentPage);
+    }
+
+    localStorage.setItem('visitedPages', JSON.stringify(visited));
+
+    const explored = visited.length;
+    const percent = Math.min(100, Math.round((explored / modules.length) * 100));
+
+    const bar = document.getElementById('learning-progress-bar');
+    const text = document.getElementById('progress-status-text');
+
+    if (bar) {
+        bar.style.width = `${percent}%`;
+        bar.textContent = `${percent}%`;
+    }
+
+    if (text) {
+        text.textContent = `${explored} of ${modules.length} Modules Explored`;
+    }
+}
+
+function analyzeLink() {
+    const input = document.getElementById('link-input');
+    const loading = document.getElementById('scan-loading');
+    const result = document.getElementById('scan-result');
+    const statusBadge = document.getElementById('result-status-badge');
+    const title = document.getElementById('result-title');
+    const explanation = document.getElementById('result-explanation');
+
+    if (!input || !loading || !result || !statusBadge || !title || !explanation) return;
+
+    const raw = (input.value || '').trim();
+
+    loading.classList.remove('hidden');
+    result.classList.add('hidden');
+
+    setTimeout(() => {
+        const lower = raw.toLowerCase();
+        const suspicious =
+            /login|verify|secure|password|bank|pay|urgent|click here|free money/i.test(lower) ||
+            /bit\.ly|tinyurl|t\.co|paypal|amazon|apple|google/i.test(lower);
+
+        loading.classList.add('hidden');
+        result.classList.remove('hidden');
+        statusBadge.textContent = suspicious ? 'SUSPICIOUS' : 'SAFE';
+        title.textContent = suspicious ? 'Suspicious Link' : 'Looks Safe';
+        explanation.textContent = suspicious
+            ? 'This looks like a scam or phishing attempt. Avoid clicking and verify the source directly.'
+            : 'This appears to be a normal link, but always double-check the URL before entering personal information.';
+    }, 800);
+}
+
+function bindAccessibilityButtons() {
+    document.getElementById('btn-decrease-font')?.addEventListener('click', () => {
+        fontSize = Math.max(14, fontSize - 1);
+        applyFontSize();
+    });
+
+    document.getElementById('btn-reset-font')?.addEventListener('click', () => {
+        fontSize = 16;
+        applyFontSize();
+    });
+
+    document.getElementById('btn-increase-font')?.addEventListener('click', () => {
+        fontSize = Math.min(22, fontSize + 1);
+        applyFontSize();
+    });
+
+    document.getElementById('btn-toggle-theme')?.addEventListener('click', () => {
+        highContrast = !highContrast;
+        applyTheme();
+    });
+
+    document.getElementById('btn-read-aloud')?.addEventListener('click', () => {
+        const text = document.body.innerText.replace(/\s+/g, ' ').trim();
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            window.speechSynthesis.speak(utterance);
+        }
+    });
+}
+
+function applyFontSize() {
+    document.body.style.fontSize = `${fontSize}px`;
+}
+
+function applyTheme() {
+    document.body.classList.toggle('dark-mode', highContrast);
+}
+
+function renderQuiz() {
+    const questionNumber = document.getElementById('quiz-question-number');
+    const questionText = document.getElementById('quiz-question-text');
+    const optionsContainer = document.getElementById('quiz-options-container');
+    const feedbackBox = document.getElementById('quiz-feedback-box');
+    const resultsContainer = document.getElementById('quiz-results-container');
+
+    if (!questionNumber || !questionText || !optionsContainer || !feedbackBox || !resultsContainer) return;
+
+    if (quizIndex >= quizQuestions.length) {
+        showQuizResults();
+        return;
+    }
+
+    const currentQuestion = quizQuestions[quizIndex];
+    questionNumber.textContent = `Question ${quizIndex + 1}`;
+    questionText.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = '';
+
+    feedbackBox.classList.add('hidden');
+    resultsContainer.classList.add('hidden');
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'btn btn-secondary';
+        button.textContent = option;
+        button.addEventListener('click', () => submitQuizAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+}
+
+function submitQuizAnswer(index) {
+    const currentQuestion = quizQuestions[quizIndex];
+    const feedbackBox = document.getElementById('quiz-feedback-box');
+    const feedbackStatus = document.getElementById('feedback-status');
+    const feedbackExplanation = document.getElementById('feedback-explanation');
+
+    if (!feedbackBox || !feedbackStatus || !feedbackExplanation) return;
+
+    if (index === currentQuestion.answer) {
+        quizScore += 1;
+    }
+
+    feedbackStatus.textContent = index === currentQuestion.answer ? 'Correct!' : 'Not quite';
+    feedbackExplanation.textContent = currentQuestion.explanation;
+    feedbackBox.classList.remove('hidden');
+}
+
+function nextQuestion() {
+    quizIndex += 1;
+    if (quizIndex >= quizQuestions.length) {
+        showQuizResults();
+    } else {
+        renderQuiz();
+    }
+}
+
+function showQuizResults() {
+    const resultsContainer = document.getElementById('quiz-results-container');
+    const score = document.getElementById('final-score');
+    if (!resultsContainer || !score) return;
+
+    score.textContent = quizScore;
+    resultsContainer.classList.remove('hidden');
+}
+
+function resetQuiz() {
+    quizIndex = 0;
+    quizScore = 0;
+    renderQuiz();
+}
 
 // Load a random daily safety tip into the tip box
 function loadDailyTip() {
@@ -154,261 +331,5 @@ function loadDailyTip() {
     if (tipContainer) {
         const randomIndex = Math.floor(Math.random() * dailyTips.length);
         tipContainer.innerText = dailyTips[randomIndex];
-    }
-}
-
-// -------------------------------------------------------------
-// 6. SINGLE-PAGE APPLICATION (SPA) NAVIGATION ROUTER
-// -------------------------------------------------------------
-function navigateTo(pageId) {
-    // Hide active section & remove active class from nav
-    document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
-    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-
-    // Show target section
-    const target = document.getElementById(`page-${pageId}`);
-    if (target) target.classList.add('active-page');
-
-    // Highlight the matching nav link
-    const activeLink = document.querySelector(`.nav-link[href="#${pageId}"]`);
-    if (activeLink) activeLink.classList.add('active');
-
-    // Close mobile menu after navigating
-    const navMenu = document.getElementById('nav-menu');
-    if (navMenu) navMenu.classList.remove('mobile-active');
-
-    // Stop speech synthesis if user switches pages while listening
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const readBtn = document.getElementById('btn-read-aloud');
-        if (readBtn) {
-            readBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen to Page';
-        }
-    }
-}
-
-// Mobile Navigation Toggle
-function toggleMobileMenu() {
-    const navMenu = document.getElementById('nav-menu');
-    if (navMenu) {
-        navMenu.classList.toggle('mobile-active');
-    }
-}
-
-// -------------------------------------------------------------
-// 7. SCAM LINK ANALYZER SIMULATOR
-// -------------------------------------------------------------
-function analyzeLink() {
-    const inputField = document.getElementById('link-input');
-    if (!inputField) return;
-
-    const val = inputField.value.toLowerCase().trim();
-    const resultBox = document.getElementById('scan-result');
-    const badge = document.getElementById('result-status-badge');
-    const title = document.getElementById('result-title');
-    const exp = document.getElementById('result-explanation');
-
-    if (!val) {
-        alert("Please paste a link or message text first!");
-        return;
-    }
-
-    resultBox.classList.remove('hidden');
-
-    // Rule-based security analysis heuristic
-    if ((val.includes('bank') || val.includes('verify') || val.includes('urgent')) && !val.startsWith('https://')) {
-        badge.innerText = "HIGH RISK SCAM DETECTED";
-        badge.style.color = "#dc2626";
-        title.innerText = "Unsecured & Suspicious Request";
-        exp.innerText = "This message or URL contains urgency keywords or banking requests without secure HTTPS encryption. Do not open links or share passwords.";
-    } else if (val.startsWith('https://')) {
-        badge.innerText = "ENCRYPTED SITE";
-        badge.style.color = "#16a34a";
-        title.innerText = "Secure Connection Verified";
-        exp.innerText = "This address uses an encrypted protocol (HTTPS). Always double check that the domain name matches the official corporate brand name.";
-    } else {
-        badge.innerText = "UNKNOWN / CAUTION";
-        badge.style.color = "#d97706";
-        title.innerText = "Proceed with Care";
-        exp.innerText = "No immediate phishing markers detected, but exercise caution when clicking unfamiliar web links.";
-    }
-}
-
-// -------------------------------------------------------------
-// 8. INTERACTIVE QUIZ ENGINE
-// -------------------------------------------------------------
-function renderQuiz() {
-    const q = quizData[appState.quizIndex];
-    const qNum = document.getElementById('quiz-question-number');
-    const qText = document.getElementById('quiz-question-text');
-    const container = document.getElementById('quiz-options-container');
-
-    if (!qNum || !qText || !container) return;
-
-    qNum.innerText = `Question ${appState.quizIndex + 1} of ${quizData.length}`;
-    qText.innerText = q.question;
-
-    container.innerHTML = '';
-
-    q.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'btn btn-secondary';
-        btn.style.margin = '8px 5px';
-        btn.innerText = opt;
-        btn.onclick = () => selectAnswer(idx);
-        container.appendChild(btn);
-    });
-}
-
-function selectAnswer(chosenIdx) {
-    const q = quizData[appState.quizIndex];
-    const feedbackBox = document.getElementById('quiz-feedback-box');
-    const statusText = document.getElementById('feedback-status');
-    const expText = document.getElementById('feedback-explanation');
-
-    if (!feedbackBox || !statusText || !expText) return;
-
-    feedbackBox.classList.remove('hidden');
-    if (chosenIdx === q.correct) {
-        appState.quizScore++;
-        statusText.innerText = "✓ Correct!";
-        statusText.style.color = "#16a34a";
-    } else {
-        statusText.innerText = "✗ Incorrect";
-        statusText.style.color = "#dc2626";
-    }
-    expText.innerText = q.explanation;
-}
-
-function nextQuestion() {
-    appState.quizIndex++;
-    if (appState.quizIndex < quizData.length) {
-        document.getElementById('quiz-feedback-box').classList.add('hidden');
-        renderQuiz();
-    } else {
-        document.getElementById('quiz-container').classList.add('hidden');
-        const resultsBox = document.getElementById('quiz-results-container');
-        if (resultsBox) resultsBox.classList.remove('hidden');
-
-        const finalScore = document.getElementById('final-score');
-        if (finalScore) finalScore.innerText = appState.quizScore;
-    }
-}
-
-function resetQuiz() {
-    appState.quizIndex = 0;
-    appState.quizScore = 0;
-    document.getElementById('quiz-results-container').classList.add('hidden');
-    document.getElementById('quiz-feedback-box').classList.add('hidden');
-    document.getElementById('quiz-container').classList.remove('hidden');
-    renderQuiz();
-}
-
-
-
-// -------------------------------------------------------------
-// 7. SCAM LINK ANALYZER WITH GOOGLE SAFE BROWSING INTEGRATION
-// -------------------------------------------------------------
-
-// Asynchronous API call to Google Safe Browsing
-async function checkUrlWithGoogleSafeBrowsing(urlToCheck) {
-    const apiKey = 'AIzaSyAZmAZ-q7jHmLIEk_I06miup0cRJyQbujY';
-    const endpoint = `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${apiKey}`;
-
-    const requestBody = {
-        client: {
-            clientId: "silverconnect-app",
-            clientVersion: "1.0.0"
-        },
-        threatInfo: {
-            threatTypes: ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE", "POTENTIALLY_HARMFUL_APPLICATION"],
-            platformTypes: ["ANY_PLATFORM"],
-            threatEntryTypes: ["URL"],
-            threatEntries: [
-                { url: urlToCheck }
-            ]
-        }
-    };
-
-    try {
-        const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
-        });
-
-        const data = await response.json();
-
-        // If 'matches' array exists in response, Google has flagged the link as unsafe
-        if (data.matches && data.matches.length > 0) {
-            return { safe: false, threatType: data.matches[0].threatType };
-        } else {
-            return { safe: true };
-        }
-    } catch (error) {
-        console.error("API Scan Error:", error);
-        return { safe: null, error: "Scan service unavailable" };
-    }
-}
-
-// Main function called by the button on index.html
-async function analyzeLink() {
-    const inputField = document.getElementById('link-input');
-    const loadingIndicator = document.getElementById('scan-loading');
-    const resultBox = document.getElementById('scan-result');
-    const badge = document.getElementById('result-status-badge');
-    const title = document.getElementById('result-title');
-    const exp = document.getElementById('result-explanation');
-
-    if (!inputField) return;
-
-    let val = inputField.value.trim();
-
-    if (!val) {
-        alert("Please paste a link or message text first!");
-        return;
-    }
-
-    // Auto-prefix http:// if missing so Google API and URL parsing work correctly
-    if (!val.startsWith('http://') && !val.startsWith('https://')) {
-        val = 'http://' + val;
-    }
-
-    // UI State: Show loading, hide previous results
-    if (loadingIndicator) loadingIndicator.classList.remove('hidden');
-    resultBox.classList.add('hidden');
-
-    // Perform the API scan
-    const apiResult = await checkUrlWithGoogleSafeBrowsing(val);
-
-    // Hide loading
-    if (loadingIndicator) loadingIndicator.classList.add('hidden');
-    resultBox.classList.remove('hidden');
-
-    // Handle results
-    if (apiResult.safe === false) {
-        badge.innerText = "DANGEROUS / MALICIOUS LINK";
-        badge.style.color = "#dc2626";
-        title.innerText = "Threat Detected!";
-        exp.innerText = `Google Safe Browsing has flagged this link as high risk due to ${apiResult.threatType.replace('_', ' ').toLowerCase()}. Do not open this link or share personal information.`;
-    } else if (apiResult.safe === true) {
-        // Run fallback heuristic checks for HTTPS / domain red flags
-        if (!val.startsWith('https://')) {
-            badge.innerText = "UNENCRYPTED SITE";
-            badge.style.color = "#d97706";
-            title.innerText = "Missing HTTPS Encryption";
-            exp.innerText = "Google did not flag this link as malware, but it uses an unencrypted HTTP connection. Avoid entering passwords or credit card details here.";
-        } else {
-            badge.innerText = "NO KNOWN THREATS";
-            badge.style.color = "#16a34a";
-            title.innerText = "Connection & Status Clean";
-            exp.innerText = "This address is encrypted (HTTPS) and passed Google Safe Browsing checks. Always double check that the domain name matches the official corporate brand name.";
-        }
-    } else {
-        // Fallback if API fails or network goes offline
-        badge.innerText = "CHECK COMPLETED WITH CAUTION";
-        badge.style.color = "#d97706";
-        title.innerText = "Offline / Unknown Threat Status";
-        exp.innerText = "Unable to connect to live threat database. Always exercise caution when opening links from unexpected messages.";
     }
 }
