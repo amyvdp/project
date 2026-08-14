@@ -189,9 +189,15 @@
             <div class="card">
                 <button class="btn btn-secondary" onclick="navigateTo('safety')"><i class="fa-solid fa-arrow-left"></i> Back to Stay Safe</button>
                 <h1>Safety & Literacy Quiz</h1>
+
+                <!-- Category Selector Buttons -->
+                <div id="quiz-category-selector" style="margin-top: 15px; margin-bottom: 20px;"></div>
+
                 <div id="quiz-container">
+                    <h3 id="quiz-category-title"></h3>
                     <span id="quiz-question-number">Question 1</span>
-                    <h2 id="quiz-question-text">Question text...</h2>
+                    <h2 id="quiz-question-text">who do scammers often pretend to be?.</h2>
+                    
                     <div id="quiz-options-container" class="options-container"></div>
                     <div id="quiz-feedback-box" class="quiz-feedback hidden">
                         <div id="feedback-status">Status</div>
@@ -201,7 +207,7 @@
                 </div>
                 <div id="quiz-results-container" class="results-container hidden">
                     <h2>Quiz Completed!</h2>
-                    <p>Score: <span id="final-score">0</span> / 10</p>
+                    <p>Score: <span id="final-score">0</span></p>
                     <button class="btn btn-secondary" onclick="resetQuiz()">Retake Quiz</button>
                 </div>
             </div>
