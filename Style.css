@@ -451,6 +451,9 @@ button, input {
 .topic-card {
     border-top: 5px solid var(--border-color);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 .topic-card:hover {
     box-shadow: var(--shadow-hover);
@@ -460,6 +463,13 @@ button, input {
     display: flex;
     align-items: center;
     gap: 12px;
+}
+.topic-card p {
+    flex-grow: 1; /* Pushes the button to the bottom area */
+}
+.topic-card .btn {
+    margin-top: auto; /* Forces button to align perfectly along the bottom */
+    align-self: flex-start;
 }
 .topic-icon {
     display: inline-flex;
