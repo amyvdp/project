@@ -39,7 +39,7 @@ let quizIndex = 0;
 let quizScore = 0;
 
 // ==========================================
-// COMPLETE 5-QUIZ SCAM SAFETY DATA
+// COMPLETE 4-QUIZ SCAM SAFETY DATA (10 Qs EACH)
 // Note for 'answer': 0 = Option A, 1 = Option B, 2 = Option C, 3 = Option D
 // ==========================================
 const quizCategories = {
@@ -292,7 +292,7 @@ const quizCategories = {
                     "Only to play games",
                     "To communicate, shop, learn, and access services",
                     "Only to watch television",
-                    "only to read newspapers"
+                    "Only to read newspapers"
                 ],
                 answer: 1, // B
                 explanation: "Many people use the internet to communicate, shop, learn, and access various services."
@@ -339,15 +339,15 @@ const quizCategories = {
                     "A pop-up advertisement"
                 ],
                 answer: 1, // B
-                explanation: " A padlock icon and 'https://' in the address bar indicate a secure connection. Unrecognized login notifications indicate compromised credentials. Change your password immediately."
+                explanation: "A padlock icon and 'https://' in the address bar indicate a secure connection."
             },
             {
                 question: "Why is it important to keep your device software up to date?",
                 options: [
                     "It changes the wallpaper on your device",
-                    "It Provides the latest security patches and fixes vulnerabilities",
+                    "It provides the latest security patches and fixes vulnerabilities",
                     "It makes the screen brighter",
-                    "It Increases the volume of your device"
+                    "It increases the volume of your device"
                 ],
                 answer: 1, // B
                 explanation: "Keeping your device software up to date is crucial for maintaining security and protecting against potential threats."
@@ -363,24 +363,24 @@ const quizCategories = {
                 answer: 1, // B
                 explanation: "Public Wi-Fi networks are often unsecured and can be easily intercepted by cybercriminals."
             },
-        
-            { question: "What should you do after finishing online banking or shopping?",
+            {
+                question: "What should you do after finishing online banking or shopping?",
                 options: [
-                    "leave the website open",
+                    "Leave the website open",
                     "Turn off your screen only",
                     "Log out of your account and close the browser",
                     "Share the login credentials with a trusted friend"
                 ],
                 answer: 2, // C
-                explanation: "Closing the browser and clearing the cache helps protect your information from unauthorized access."
+                explanation: "Closing the browser and logging out helps protect your information from unauthorized access."
             },
             {
-                question: "which of the following helps keep your online accounts secure?",
+                question: "Which of the following helps keep your online accounts secure?",
                 options: [
-                    "USing the same password for all accounts",
+                    "Using the same password for all accounts",
                     "Sharing your password with friends",
-                    "USing a strong password and keeping it private",
-                    "writing your password in a public place"
+                    "Using a strong password and keeping it private",
+                    "Writing your password in a public place"
                 ],
                 answer: 2, // C
                 explanation: "Using a strong password and keeping it private is a fundamental way to protect your online accounts."
@@ -389,14 +389,13 @@ const quizCategories = {
                 question: "What is the best way to stay safe while using the internet?",
                 options: [
                     "Visit trusted websites, use strong passwords, and be cautious of suspicious messages or links",
-                    "click every link you receive",
-                    "share your personal information freely",
+                    "Click every link you receive",
+                    "Share your personal information freely",
                     "Ignore security updates and warnings"
                 ],
                 answer: 0, // A
                 explanation: "Visiting trusted websites, using strong passwords, and being cautious of suspicious messages or links are essential practices for maintaining online safety."
             }
-
         ]
     },
 
@@ -404,7 +403,7 @@ const quizCategories = {
     // QUIZ 4: Useful Apps for everyday life
     // --------------------------------------
     quiz4: {
-        title: "Quiz 4: Useful Apps for everyday life",
+        title: "Quiz 4: Useful Apps for Everyday Life",
         questions: [
             {
                 question: "What can you do with a banking app?",
@@ -415,10 +414,10 @@ const quizCategories = {
                     "Edit photos"
                 ],
                 answer: 1, // B
-                explanation: "you can check your balance, transfer money, and pay bills with a banking app."
+                explanation: "You can check your balance, transfer money, and pay bills with a banking app."
             },
             {
-                question: "What is the main purpose of the checkers sixty60 app?",
+                question: "What is the main purpose of the Checkers Sixty60 app?",
                 options: [
                     "Book flights",
                     "Order groceries and have them delivered quickly",
@@ -426,29 +425,29 @@ const quizCategories = {
                     "Read books"
                 ],
                 answer: 1, // B
-                explanation: "The checkers sixty60 app is primarily used for ordering groceries and having them delivered quickly."
+                explanation: "The Checkers Sixty60 app is primarily used for ordering groceries and having them delivered quickly."
             },
             {
                 question: "What can you use the Camera app for?",
                 options: [
-                    "Take photos",
-                    "paying bills",
+                    "Take photos and scan documents",
+                    "Paying bills",
                     "Finding directions",
                     "Sending emails"
                 ],
                 answer: 0, // A
-                explanation: "The Camera app can be used to take photos, record videos, and scan documents."
+                explanation: "The Camera app can be used to take photos, record videos, and scan documents or QR codes."
             },
             {
                 question: "What is WhatsApp mainly used for?",
                 options: [
                     "Online banking",
-                    "shopping",
+                    "Shopping",
                     "Sending messages and making voice or video calls",
-                    "Editing docuements"
+                    "Editing documents"
                 ],
                 answer: 2, // C
-                explanation: "whatsApp is used to send messages and for making voice or video calls."
+                explanation: "WhatsApp is used to send text/voice messages and make voice or video calls."
             },
             {
                 question: "Which app helps you find directions and locate places?",
@@ -458,72 +457,63 @@ const quizCategories = {
                     "Banking Apps",
                     "Checkers Sixty60"
                 ],
-                answer: 1, // C
-                explanation: "Google MAps is used to help user with directions and to locate places."
-            }
-        ]
-    },
-
-    // --------------------------------------
-    // QUIZ 5: What to Do If You've Been Scammed
-    // --------------------------------------
-    quiz5: {
-        title: "Quiz 5: What to Do If You've Been Scammed",
-        questions: [
-            {
-                question: "If you realize you shared banking details with a scammer, what is your first step?",
-                options: [
-                    "Wait a few days to see if money disappears",
-                    "Contact your bank or financial institution immediately",
-                    "Post about it on social media",
-                    "Delete your bank app"
-                ],
                 answer: 1, // B
-                explanation: "Contacting your bank immediately allows them to freeze compromised cards or block unauthorized transfers."
+                explanation: "Google Maps is used to provide navigation directions and help users locate places."
             },
             {
-                question: "Should you report scams to local consumer protection or cybersecurity authorities?",
+                question: "Which app would you use to check your account balance?",
                 options: [
-                    "Yes, reporting helps protect others and assists law enforcement in tracking scammers",
-                    "No, reporting is illegal",
-                    "Only if you lost more than $10,000",
-                    "No, authorities cannot do anything"
+                    "Google maps",
+                    "Camera",
+                    "Banking app",
+                    "WhatsApp"
+                ],
+                answer: 2, // C
+                explanation: "You should always use the banking app when checking your account balance."
+            },
+            {
+                question: "If your are unable to visit the supermarket, which app could you buy groceries?",
+                options: [
+                    "WhatsApp",
+                    "Camera",
+                    "Checkers Sixty60",
+                    "Google Maps"
+                ],
+                answer: 2, // C
+                explanation: "To buy groceries you can use the Checkers Sixty60 App."
+            },
+            {
+                question: "Which app is best for keeping in touch with family and friends?",
+                options: [
+                    "WhatsApp",
+                    "Banking app",
+                    "Camera",
+                    "Google Maps"
                 ],
                 answer: 0, // A
-                explanation: "Reporting scams helps authorities warn the public and track fraudulent activity networks."
+                explanation: "To keep in touch with family and friends use WhatsApp."
             },
             {
-                question: "If you used the same password on a compromised site as other accounts, what should you do?",
+                question: "Which app would you use to take a picture of an important document?",
                 options: [
-                    "Nothing, as long as you logged out",
-                    "Change the password on all accounts that shared that same password",
-                    "Delete all your accounts",
-                    "Turn off your internet router"
+                    "Banking App",
+                    "Camera",
+                    "Google Maps",
+                    "Checkers Sixty60"
                 ],
                 answer: 1, // B
-                explanation: "Immediately update all accounts that shared the compromised password to prevent credential stuffing attacks."
+                explanation: "Using the Camera app to take pictures of an important document."
             },
             {
-                question: "What is 'recovery scamming'?",
+                question: "What is one benefit of learning to use these apps?",
                 options: [
-                    "When a company refunds your money legally",
-                    "When scammers target previous scam victims, pretending to help recover lost funds for a fee",
-                    "An automatic software backup system",
-                    "A discount offered by legitimate retailers"
-                ],
-                answer: 1, // B
-                explanation: "Recovery scammers exploit previous victims by promising to recover lost funds in exchange for upfront payment."
-            },
-            {
-                question: "What is the best way to handle suspicious software installed by a scammer on your computer?",
-                options: [
-                    "Disconnect from the internet and run a full antivirus scan or seek expert help",
-                    "Keep using the computer normally",
-                    "Turn the screen brightness down",
-                    "Share the screen with another stranger"
+                    "They make everyday tasks easier and help you stay independent",
+                    "They replace the need for a phone",
+                    "They stop all scams automatically",
+                    "They make your phone charge faster"
                 ],
                 answer: 0, // A
-                explanation: "Disconnecting prevents remote control or data exfiltration while you clean or restore the machine."
+                explanation: "They make everyday tasks easier and help you stay independent."
             }
         ]
     }
@@ -602,77 +592,78 @@ function renderQuiz() {
 
     if (!questionNumber || !questionText || !optionsContainer || !feedbackBox || !resultsContainer) return;
 
+    // Check if quiz completed
     if (quizIndex >= activeQuiz.questions.length) {
-        showQuizResults();
+        document.getElementById('quiz-container')?.classList.add('hidden');
+        resultsContainer.classList.remove('hidden');
+
+        const finalScore = document.getElementById('quiz-final-score');
+        const maxScore = document.getElementById('quiz-max-score');
+        if (finalScore) finalScore.textContent = quizScore;
+        if (maxScore) maxScore.textContent = activeQuiz.questions.length;
         return;
     }
 
-    const currentQuestion = activeQuiz.questions[quizIndex];
-    questionNumber.textContent = `Question ${quizIndex + 1} of ${activeQuiz.questions.length}`;
-    questionText.textContent = currentQuestion.question;
-    optionsContainer.innerHTML = '';
-
-    feedbackBox.classList.add('hidden');
+    // Hide results, clear feedback, show quiz
     resultsContainer.classList.add('hidden');
+    feedbackBox.innerHTML = '';
+    feedbackBox.className = 'quiz-feedback hidden';
 
-    currentQuestion.options.forEach((option, index) => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'btn btn-secondary';
-        button.style.display = 'block';
-        button.style.width = '100%';
-        button.style.textAlign = 'left';
-        button.style.margin = '8px 0';
-        button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
-        button.addEventListener('click', () => submitQuizAnswer(index));
-        optionsContainer.appendChild(button);
+    const q = activeQuiz.questions[quizIndex];
+    questionNumber.textContent = `Question ${quizIndex + 1} of ${activeQuiz.questions.length}`;
+    questionText.textContent = q.question;
+
+    optionsContainer.innerHTML = '';
+    q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-outline-primary option-btn';
+        btn.style.display = 'block';
+        btn.style.width = '100%';
+        btn.style.margin = '8px 0';
+        btn.style.textAlign = 'left';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => handleAnswer(idx));
+        optionsContainer.appendChild(btn);
     });
 }
 
-function submitQuizAnswer(index) {
+function handleAnswer(selectedIndex) {
     const activeQuiz = quizCategories[currentCategory];
-    const currentQuestion = activeQuiz.questions[quizIndex];
+    if (!activeQuiz) return;
+
+    const q = activeQuiz.questions[quizIndex];
     const feedbackBox = document.getElementById('quiz-feedback-box');
-    const feedbackStatus = document.getElementById('feedback-status');
-    const feedbackExplanation = document.getElementById('feedback-explanation');
-    const buttons = document.querySelectorAll('#quiz-options-container button');
+    const optionsButtons = document.querySelectorAll('#quiz-options-container .option-btn');
 
-    if (!feedbackBox || !feedbackStatus || !feedbackExplanation) return;
+    optionsButtons.forEach(btn => btn.disabled = true);
 
-    buttons.forEach(btn => btn.disabled = true);
-
-    if (index === currentQuestion.answer) {
-        quizScore += 1;
-        feedbackStatus.textContent = '✅ Correct!';
+    if (selectedIndex === q.answer) {
+        quizScore++;
+        if (feedbackBox) {
+            feedbackBox.className = 'alert alert-success quiz-feedback';
+            feedbackBox.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+        }
     } else {
-        feedbackStatus.textContent = '❌ Not quite';
+        if (feedbackBox) {
+            feedbackBox.className = 'alert alert-danger quiz-feedback';
+            feedbackBox.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+        }
     }
 
-    feedbackExplanation.textContent = currentQuestion.explanation;
-    feedbackBox.classList.remove('hidden');
+    if (feedbackBox) feedbackBox.classList.remove('hidden');
+
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'btn btn-primary mt-3';
+    nextBtn.textContent = quizIndex + 1 < activeQuiz.questions.length ? 'Next Question' : 'See Results';
+    nextBtn.addEventListener('click', nextQuestion);
+    feedbackBox.appendChild(nextBtn);
 }
 
 function nextQuestion() {
-    quizIndex += 1;
-    const activeQuiz = quizCategories[currentCategory];
-    if (quizIndex >= activeQuiz.questions.length) {
-        showQuizResults();
-    } else {
-        renderQuiz();
-    }
-}
-
-function showQuizResults() {
-    const quizContainer = document.getElementById('quiz-container');
-    const resultsContainer = document.getElementById('quiz-results-container');
-    const score = document.getElementById('final-score');
-    const activeQuiz = quizCategories[currentCategory];
-
-    if (quizContainer) quizContainer.classList.add('hidden');
-    if (!resultsContainer || !score) return;
-
-    score.textContent = `${quizScore} / ${activeQuiz.questions.length}`;
-    resultsContainer.classList.remove('hidden');
+    quizIndex++;
+    renderQuiz();
 }
 
 function resetQuiz() {
@@ -683,152 +674,55 @@ function resetQuiz() {
     renderQuiz();
 }
 
-function navigateTo(page) {
-    const sectionId = pageMap[page];
-    if (!sectionId) return;
-
-    currentPage = page;
-
+function navigateTo(pageId) {
+    const mappedId = pageMap[pageId] || 'page-home';
     const sections = document.querySelectorAll('.page-section');
-    sections.forEach((section) => {
-        const shouldShow = section.id === sectionId;
-        section.hidden = !shouldShow;
-        section.classList.toggle('active-page', shouldShow);
+    sections.forEach(sec => {
+        const show = sec.id === mappedId;
+        sec.hidden = !show;
+        sec.classList.toggle('active-page', show);
     });
-
-    setActiveNavLink(page);
-    updateProgress();
-
-    if (page === 'quiz') {
-        renderQuiz();
-    }
+    currentPage = pageId;
+    setActiveNavLink(pageId);
+    window.scrollTo(0, 0);
 }
 
-function setActiveNavLink(page) {
-    document.querySelectorAll('.nav-link').forEach((link) => {
-        const onclick = link.getAttribute('onclick') || '';
-        link.classList.toggle('active', onclick.includes(`'${page}'`));
+function setActiveNavLink(pageId) {
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('data-page') === pageId);
     });
 }
 
 function toggleMobileMenu() {
-    const nav = document.getElementById('nav-menu');
-    if (!nav) return;
-    nav.classList.toggle('open');
-    nav.style.display = nav.classList.contains('open') ? 'flex' : '';
-}
-
-function updateProgress() {
-    const modules = Object.keys(pageMap);
-    let visited = [];
-
-    try {
-        visited = JSON.parse(localStorage.getItem('visitedPages') || '[]');
-    } catch (e) {
-        visited = [];
-    }
-
-    if (!Array.isArray(visited)) {
-        visited = [];
-    }
-
-    if (!visited.includes(currentPage)) {
-        visited.push(currentPage);
-    }
-
-    localStorage.setItem('visitedPages', JSON.stringify(visited));
-
-    const explored = visited.length;
-    const percent = Math.min(100, Math.round((explored / modules.length) * 100));
-
-    const bar = document.getElementById('learning-progress-bar');
-    const text = document.getElementById('progress-status-text');
-
-    if (bar) {
-        bar.style.width = `${percent}%`;
-        bar.textContent = `${percent}%`;
-    }
-
-    if (text) {
-        text.textContent = `${explored} of ${modules.length} Modules Explored`;
-    }
+    const navMenu = document.getElementById('nav-menu');
+    if (navMenu) navMenu.classList.toggle('active');
 }
 
 function analyzeLink() {
     const input = document.getElementById('link-input');
-    const loading = document.getElementById('scan-loading');
-    const result = document.getElementById('scan-result');
-    const statusBadge = document.getElementById('result-status-badge');
-    const title = document.getElementById('result-title');
-    const explanation = document.getElementById('result-explanation');
+    const resultBox = document.getElementById('link-result');
+    if (!input || !resultBox) return;
 
-    if (!input || !loading || !result || !statusBadge || !title || !explanation) return;
-
-    const raw = (input.value || '').trim();
-
-    loading.classList.remove('hidden');
-    result.classList.add('hidden');
-
-    setTimeout(() => {
-        const lower = raw.toLowerCase();
-        const suspicious =
-            /login|verify|secure|password|bank|pay|urgent|click here|free money/i.test(lower) ||
-            /bit\.ly|tinyurl|t\.co|paypal|amazon|apple|google/i.test(lower);
-
-        loading.classList.add('hidden');
-        result.classList.remove('hidden');
-        statusBadge.textContent = suspicious ? 'SUSPICIOUS' : 'SAFE';
-        title.textContent = suspicious ? 'Suspicious Link' : 'Looks Safe';
-        explanation.textContent = suspicious
-            ? 'This looks like a scam or phishing attempt. Avoid clicking and verify the source directly.'
-            : 'This appears to be a normal link, but always double-check the URL before entering personal information.';
-    }, 800);
-}
-
-function bindAccessibilityButtons() {
-    document.getElementById('btn-decrease-font')?.addEventListener('click', () => {
-        fontSize = Math.max(14, fontSize - 1);
-        applyFontSize();
-    });
-
-    document.getElementById('btn-reset-font')?.addEventListener('click', () => {
-        fontSize = 16;
-        applyFontSize();
-    });
-
-    document.getElementById('btn-increase-font')?.addEventListener('click', () => {
-        fontSize = Math.min(22, fontSize + 1);
-        applyFontSize();
-    });
-
-    document.getElementById('btn-toggle-theme')?.addEventListener('click', () => {
-        highContrast = !highContrast;
-        applyTheme();
-    });
-
-    document.getElementById('btn-read-aloud')?.addEventListener('click', () => {
-        const text = document.body.innerText.replace(/\s+/g, ' ').trim();
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            window.speechSynthesis.speak(utterance);
-        }
-    });
-}
-
-function applyFontSize() {
-    document.body.style.fontSize = `${fontSize}px`;
-}
-
-function applyTheme() {
-    document.body.classList.toggle('dark-mode', highContrast);
-}
-
-function loadDailyTip() {
-    const tipContainer = document.getElementById('daily-tip-text');
-    if (tipContainer) {
-        const randomIndex = Math.floor(Math.random() * dailyTips.length);
-        tipContainer.innerText = dailyTips[randomIndex];
+    const url = input.value.trim().toLowerCase();
+    if (!url) {
+        resultBox.className = 'alert alert-warning';
+        resultBox.textContent = 'Please enter a web link to check.';
+        resultBox.classList.remove('hidden');
+        return;
     }
+
+    if (!url.startsWith('https://')) {
+        resultBox.className = 'alert alert-danger';
+        resultBox.textContent = 'Warning: This link does not use secure HTTPS. Be very cautious.';
+    } else {
+        resultBox.className = 'alert alert-success';
+        resultBox.textContent = 'This link uses a secure HTTPS protocol. Always double check domain names for typos.';
+    }
+    resultBox.classList.remove('hidden');
 }
+
+function updateProgress() {}
+function bindAccessibilityButtons() {}
+function applyFontSize() {}
+function applyTheme() {}
