@@ -655,6 +655,100 @@ button, input {
     display: none !important;
 }
 
+/* ---------- Step-by-step guides (Downloadable Apps, etc.) ---------- */
+.step-list {
+    list-style: none;
+    counter-reset: step;
+    padding: 0;
+    margin: 24px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.step-item {
+    counter-increment: step;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--topic-skills);
+    color: white;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95em;
+}
+
+.step-item p {
+    margin: 0;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.step-note {
+    margin-top: 18px;
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    background: var(--secondary-tint);
+    border-left: 5px solid var(--secondary-color);
+    color: var(--text-color);
+    font-size: 0.95em;
+}
+
+/* ---------- App logo badges ---------- */
+.app-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    color: white;
+    font-size: 0.95em;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+
+.app-icon-lg {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3em;
+    margin-right: 4px;
+}
+
+.card h1 .app-icon-lg,
+.card h2 .app-icon {
+    margin-right: 4px;
+}
+
+.app-icon-apps { background: var(--topic-skills); }
+.app-icon-whatsapp { background: #25D366; }
+.app-icon-gmail { background: #EA4335; }
+.app-icon-google { background: #4285F4; }
+.app-icon-facebook { background: #1877F2; }
+
+/* Sub-headings that split a guide into stages (e.g. "Creating your account") */
+.card .step-list + h2,
+.card .step-note + h2 {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+    color: var(--primary-color);
+    font-size: 1.15em;
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
     background: var(--primary-dark);
@@ -687,4 +781,5 @@ button, input {
     h1 { font-size: 1.55em; }
     .card { padding: 22px; }
     .logo img { width: 190px; }
+    .step-item { padding: 14px 16px; gap: 12px; }
 }
