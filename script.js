@@ -1,7 +1,35 @@
 /// Global Application State
 const appState = {
     fontScale: 1.0,
-    darkMode: false
+    darkMode: false,
+    language: localStorage.getItem('silverassist-language') || 'en'
+};
+
+const translations = {
+    en: {
+        accessibility: 'Accessibility', highContrast: 'High Contrast', listenToPage: 'Listen to Page',
+        home: 'Home', aboutContact: 'About Us and Contact', informationEthics: 'Information Ethics',
+        startLearning: 'Start learning', scamChecker: 'Scam Checker', searchTopics: 'Search safety topics...',
+        heroTitle: 'Navigate the Digital World with Confidence & Safety',
+        heroSubtitle: 'SilverAssit empowers older adults to access, evaluate, and share digital information safely and responsibly.',
+        startLearningNow: 'Start Learning Now', checkLink: 'Check a Link for Scams'
+    },
+    af: {
+        accessibility: 'Toeganklikheid', highContrast: 'Hoe kontras', listenToPage: 'Luister na bladsy',
+        home: 'Tuis', aboutContact: 'Oor ons en kontak', informationEthics: 'Inligtingsetiek',
+        startLearning: 'Begin leer', scamChecker: 'Bedrogkontroleerder', searchTopics: 'Soek veiligheidsonderwerpe...',
+        heroTitle: 'Navigeer die digitale wereld met vertroue en veiligheid',
+        heroSubtitle: 'SilverAssit help ouer volwassenes om digitale inligting veilig en verantwoordelik te gebruik, te evalueer en te deel.',
+        startLearningNow: 'Begin nou leer', checkLink: 'Kontroleer skakels vir bedrog'
+    },
+    zu: {
+        accessibility: 'Ukufinyeleleka', highContrast: 'Umehluko omkhulu', listenToPage: 'Lalela ikhasi',
+        home: 'Ikhaya', aboutContact: 'Mayelana nathi nokuxhumana', informationEthics: 'Izimiso zolwazi',
+        startLearning: 'Qala ukufunda', scamChecker: 'Isihloli sobuqili', searchTopics: 'Sesha izihloko zokuphepha...',
+        heroTitle: 'Sebenzisa umhlaba wedijithali ngokuzethemba nangokuphepha',
+        heroSubtitle: 'ISilverAssit isiza abantu abadala ukuthi bathole, bahlole futhi babelane ngolwazi lwedijithali ngokuphepha nangokuzibophezela.',
+        startLearningNow: 'Qala ukufunda manje', checkLink: 'Hlola isixhumanisi sobuqili'
+    }
 };
 
 // Daily Safety Tips Pool
@@ -542,6 +570,8 @@ function init() {
     renderQuiz();
     applyFontSize();
     applyTheme();
+    bindLanguageSelector();
+    applyLanguage(appState.language);
 
     window.navigateTo = navigateTo;
     window.toggleMobileMenu = toggleMobileMenu;
@@ -549,6 +579,49 @@ function init() {
     window.nextQuestion = nextQuestion;
     window.resetQuiz = resetQuiz;
     window.selectCategory = selectCategory;
+}
+
+function bindLanguageSelector() {
+    const selector = document.getElementById('language-select');
+    if (selector) selector.addEventListener('change', (event) => applyLanguage(event.target.value));
+}
+
+function applyLanguage(language) {
+    const selectedLanguage = translations[language] ? language : 'en';
+    const dictionary = translations[selectedLanguage];
+    appState.language = selectedLanguage;
+    localStorage.setItem('silverassist-language', selectedLanguage);
+    document.documentElement.lang = selectedLanguage;
+
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+        const translation = dictionary[element.dataset.i18n];
+        if (translation) element.textContent = translation;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+        const translation = dictionary[element.dataset.i18nPlaceholder];
+        if (translation) element.placeholder = translation;
+    });
+
+    const selector = document.getElementById('language-select');
+    if (selector) selector.value = selectedLanguage;
+
+    // Translate text that is not tagged with a local data-i18n key.
+    syncGoogleLanguage(selectedLanguage);
+}
+
+function syncGoogleLanguage(language, attempt = 0) {
+    const googleSelector = document.querySelector('.goog-te-combo');
+    if (googleSelector) {
+        if (googleSelector.value !== language) {
+            googleSelector.value = language;
+            googleSelector.dispatchEvent(new Event('change'));
+        }
+        return;
+    }
+
+    if (attempt < 10) {
+        window.setTimeout(() => syncGoogleLanguage(language, attempt + 1), 250);
+    }
 }
 
 function renderCategoryButtons() {

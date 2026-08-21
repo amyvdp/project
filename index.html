@@ -17,13 +17,23 @@
     <!-- Accessibility Control Bar -->
     <aside class="accessibility-bar" aria-label="Accessibility Controls">
         <div class="container accessibility-container">
-            <span class="accessibility-title"><i class="fa-solid fa-universal-access"></i> Accessibility:</span>
+            <span class="accessibility-title"><i class="fa-solid fa-universal-access"></i> <span data-i18n="accessibility">Accessibility</span>:</span>
             <div class="accessibility-buttons">
+                <label class="language-picker" for="language-select">
+                    <i class="fa-solid fa-language" aria-hidden="true"></i>
+                    <span class="sr-only">Choose language</span>
+                    <select id="language-select" aria-label="Choose language">
+                        <option value="en">English</option>
+                        <option value="af">Afrikaans</option>
+                        <option value="zu">isiZulu</option>
+                    </select>
+                </label>
+                <div id="google_translate_element" class="google-translate-hidden" aria-hidden="true"></div>
                 <button id="btn-decrease-font" class="acc-btn" title="Decrease Text Size">A -</button>
                 <button id="btn-reset-font" class="acc-btn" title="Reset Text Size">Normal</button>
                 <button id="btn-increase-font" class="acc-btn" title="Increase Text Size">A +</button>
-                <button id="btn-toggle-theme" class="acc-btn" title="Toggle High Contrast Dark Mode"><i class="fa-solid fa-moon"></i> High Contrast</button>
-                <button id="btn-read-aloud" class="acc-btn highlight-acc" title="Read Page Aloud"><i class="fa-solid fa-volume-high"></i> Listen to Page</button>
+                <button id="btn-toggle-theme" class="acc-btn" title="Toggle High Contrast Dark Mode"><i class="fa-solid fa-moon"></i> <span data-i18n="highContrast">High Contrast</span></button>
+                <button id="btn-read-aloud" class="acc-btn highlight-acc" title="Read Page Aloud"><i class="fa-solid fa-volume-high"></i> <span data-i18n="listenToPage">Listen to Page</span></button>
             </div>
         </div>
     </aside>
@@ -41,19 +51,19 @@
 
             <!-- Navigation Links -->
             <nav class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link active" onclick="navigateTo('home')"><i class="fa-solid fa-house"></i> Home</a>
-                <a href="#aboutus" class="nav-link" onclick="navigateTo('aboutus')"><i class="fa-solid fa-laptop"></i> About Us and Contact</a>
+                <a href="#home" class="nav-link active" onclick="navigateTo('home')"><i class="fa-solid fa-house"></i> <span data-i18n="home">Home</span></a>
+                <a href="#aboutus" class="nav-link" onclick="navigateTo('aboutus')"><i class="fa-solid fa-laptop"></i> <span data-i18n="aboutContact">About Us and Contact</span></a>
         
-             <a href="#about" class="nav-link" onclick="navigateTo('about')"><i class="fa-solid fa-book-open"></i> Information Ethics</a>
-                <a href="#safety" class="nav-link" onclick="navigateTo('safety')"><i class="fa-solid fa-user-shield"></i> Start learning</a>
-                <a href="#linkchecker" class="nav-link" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-robot"></i> Scam Checker</a>
+                 <a href="#about" class="nav-link" onclick="navigateTo('about')"><i class="fa-solid fa-book-open"></i> <span data-i18n="informationEthics">Information Ethics</span></a>
+                     <a href="#safety" class="nav-link" onclick="navigateTo('safety')"><i class="fa-solid fa-user-shield"></i> <span data-i18n="startLearning">Start learning</span></a>
+                     <a href="#linkchecker" class="nav-link" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-robot"></i> <span data-i18n="scamChecker">Scam Checker</span></a>
             
             </nav>
 
             <!-- Search Bar -->
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="global-search" placeholder="Search safety topics..." aria-label="Search safety topics">
+                <input type="text" id="global-search" placeholder="Search safety topics..." aria-label="Search safety topics" data-i18n-placeholder="searchTopics">
             </div>
         </div>
     </header>
@@ -66,11 +76,11 @@
             <div class="hero-card">
                 <div class="hero-content">
                     <span class="badge"><i class="fa-solid fa-graduation-cap"></i> INL 370 Project</span>
-                    <h1>Navigate the Digital World with Confidence & Safety</h1>
-                    <p class="hero-subtitle">SilverAssit empowers older adults to access, evaluate, and share digital information safely and responsibly.</p>
+                    <h1 data-i18n="heroTitle">Navigate the Digital World with Confidence &amp; Safety</h1>
+                    <p class="hero-subtitle" data-i18n="heroSubtitle">SilverAssit empowers older adults to access, evaluate, and share digital information safely and responsibly.</p>
                     <div class="hero-cta-group">
-                        <button class="btn btn-primary btn-large" onclick="navigateTo('safety')"><i class="fa-solid fa-shield-heart"></i> Start Learning Now</button>
-                        <button class="btn btn-secondary btn-large" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-wand-magic-sparkles"></i> Check a Link for Scams</button>
+                        <button class="btn btn-primary btn-large" onclick="navigateTo('safety')"><i class="fa-solid fa-shield-heart"></i> <span data-i18n="startLearningNow">Start Learning Now</span></button>
+                        <button class="btn btn-secondary btn-large" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="checkLink">Check a Link for Scams</span></button>
                     </div>
                 </div>
             </div>
@@ -695,6 +705,16 @@
         </div>
     </footer>
 
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,af,zu',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <!-- Link to your local JavaScript file -->
     <script src="script.js"></script>
 </body>
