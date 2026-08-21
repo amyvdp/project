@@ -1,4 +1,4 @@
-// Global Application State
+/// Global Application State
 const appState = {
     fontScale: 1.0,
     darkMode: false
@@ -26,7 +26,10 @@ const pageMap = {
     whatsapp: 'page-whatsapp',
     gmail: 'page-gmail',
     googlesearch: 'page-googlesearch',
-    facebook: 'page-facebook'
+    facebook: 'page-facebook',
+    signup: 'page-signup',
+    contact: 'page-contact',
+    aboutus: 'page-aboutus'
 };
 
 let currentPage = 'home';
@@ -597,8 +600,8 @@ function renderQuiz() {
         document.getElementById('quiz-container')?.classList.add('hidden');
         resultsContainer.classList.remove('hidden');
 
-        const finalScore = document.getElementById('quiz-final-score');
-        const maxScore = document.getElementById('quiz-max-score');
+        const finalScore = document.getElementById('final-score');
+        const maxScore = document.getElementById('max-score');
         if (finalScore) finalScore.textContent = quizScore;
         if (maxScore) maxScore.textContent = activeQuiz.questions.length;
         return;
@@ -696,12 +699,12 @@ function setActiveNavLink(pageId) {
 
 function toggleMobileMenu() {
     const navMenu = document.getElementById('nav-menu');
-    if (navMenu) navMenu.classList.toggle('active');
+    if (navMenu) navMenu.classList.toggle('mobile-active');
 }
 
 function analyzeLink() {
     const input = document.getElementById('link-input');
-    const resultBox = document.getElementById('link-result');
+    const resultBox = document.getElementById('scan-result');
     if (!input || !resultBox) return;
 
     const url = input.value.trim().toLowerCase();
@@ -723,6 +726,66 @@ function analyzeLink() {
 }
 
 function updateProgress() {}
-function bindAccessibilityButtons() {}
-function applyFontSize() {}
-function applyTheme() {}
+
+function bindAccessibilityButtons() {
+    const decreaseButton = document.getElementById('btn-decrease-font');
+    const resetButton = document.getElementById('btn-reset-font');
+    const increaseButton = document.getElementById('btn-increase-font');
+    const themeButton = document.getElementById('btn-toggle-theme');
+    const readAloudButton = document.getElementById('btn-read-aloud');
+
+    decreaseButton?.addEventListener('click', () => {
+        fontSize = Math.max(12, fontSize - 2);
+        applyFontSize();
+    });
+
+    resetButton?.addEventListener('click', () => {
+        fontSize = 16;
+        applyFontSize();
+    });
+
+    increaseButton?.addEventListener('click', () => {
+        fontSize = Math.min(28, fontSize + 2);
+        applyFontSize();
+    });
+
+    themeButton?.addEventListener('click', () => {
+        highContrast = !highContrast;
+        applyTheme();
+    });
+
+    readAloudButton?.addEventListener('click', () => {
+        if (!('speechSynthesis' in window)) {
+            window.alert('Text-to-speech is not supported by this browser.');
+            return;
+        }
+
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+            readAloudButton.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen to Page';
+            return;
+        }
+
+        const pageText = document.querySelector('main')?.innerText.trim();
+        if (!pageText) return;
+
+        const speech = new SpeechSynthesisUtterance(pageText);
+        speech.rate = 0.9;
+        speech.onend = () => {
+            readAloudButton.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen to Page';
+        };
+        readAloudButton.innerHTML = '<i class="fa-solid fa-stop"></i> Stop Reading';
+        window.speechSynthesis.speak(speech);
+    });
+}
+
+function applyFontSize() {
+    const scale = fontSize / 16;
+    document.documentElement.style.setProperty('--font-scale', scale.toString());
+}
+
+function applyTheme() {
+    document.body.classList.toggle('high-contrast', highContrast);
+    const themeButton = document.getElementById('btn-toggle-theme');
+    themeButton?.setAttribute('aria-pressed', highContrast.toString());
+}
