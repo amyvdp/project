@@ -1,5 +1,5 @@
 /* =========================================================
-    SilverAssit — Design Tokens
+    SilverAssist — Design Tokens
    Palette: institutional navy + trust teal on a warm paper
    background, with a single warm amber accent reserved for
    calls-to-action and one accent per learning topic. Chosen
@@ -528,6 +528,94 @@ body > .skiptranslate {
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
+/* ---------- In-person workshops page ---------- */
+#page-factcheck .card {
+    max-width: 900px;
+    margin: 30px auto 0;
+    padding: clamp(24px, 4vw, 44px);
+    background: linear-gradient(145deg, var(--card-bg), var(--primary-tint));
+    border-top: 6px solid var(--secondary-color);
+}
+
+#page-factcheck h1 {
+    max-width: 680px;
+    margin: 24px 0 14px;
+    color: var(--primary-color);
+    font-size: clamp(1.8em, 4vw, 2.45em);
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+#page-factcheck h1 + p {
+    max-width: 720px;
+    margin-bottom: 28px;
+    font-size: 1.02em;
+}
+
+#page-factcheck h2 {
+    margin: 32px 0 14px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+    color: var(--primary-color);
+}
+
+#page-factcheck h3 {
+    margin: 32px 0 14px;
+    padding: 12px 16px;
+    border-left: 5px solid var(--accent-color);
+    background: var(--secondary-tint);
+    color: var(--secondary-dark);
+}
+
+#page-factcheck .workshop-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    gap: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#page-factcheck .workshop-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 0;
+    min-height: 62px;
+    padding: 15px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(17, 50, 83, 0.05);
+    overflow-wrap: anywhere;
+}
+
+#page-factcheck .workshop-item i {
+    flex: 0 0 20px;
+    margin-top: 4px;
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+#page-factcheck .card > .btn {
+    margin: 22px 10px 0 0;
+    max-width: 100%;
+    white-space: normal;
+}
+
+#page-factcheck h2 + p {
+    max-width: 680px;
+}
+
+body.high-contrast #page-factcheck .card,
+body.high-contrast #page-factcheck .workshop-item,
+body.high-contrast #page-factcheck h3 {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
 /* ---------- Topic cards (Stay Safe hub) ---------- */
 .topic-card {
     border-top: 5px solid var(--border-color);
@@ -870,7 +958,11 @@ body > .skiptranslate {
 }
 .action-benefits li { display: flex; align-items: center; gap: 10px; }
 .action-benefits i { color: #f1c36d; }
-.action-form-panel { padding: 38px 40px; }
+.action-form-panel {
+    padding: 38px 40px;
+    background: linear-gradient(180deg, var(--card-bg), var(--primary-tint));
+    border-left: 1px solid var(--border-color);
+}
 .form-heading { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 28px; }
 .form-heading h2 { margin: 2px 0 3px; color: var(--primary-color); }
 .form-heading p { margin: 0; font-size: 0.9em; }
@@ -890,6 +982,8 @@ body > .skiptranslate {
 .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .field-group { display: grid; gap: 7px; }
 .field-group label { font-weight: 800; font-size: 0.88em; color: var(--text-color); }
+.form-group { display: grid; gap: 7px; }
+.form-label { font-weight: 800; font-size: 0.88em; color: var(--text-color); }
 .field-group label span { color: var(--text-muted); font-weight: 400; }
 .field-group input,
 .field-group textarea {
@@ -908,6 +1002,19 @@ body > .skiptranslate {
 .field-group textarea::placeholder { color: var(--text-muted); opacity: 0.8; }
 .field-group input:focus,
 .field-group textarea:focus { border-color: var(--secondary-color); outline: none; box-shadow: 0 0 0 4px var(--secondary-tint); background: var(--card-bg); }
+.form-select {
+    width: 100%;
+    min-height: 50px;
+    padding: 11px 14px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.form-select:focus { border-color: var(--secondary-color); outline: none; box-shadow: 0 0 0 4px var(--secondary-tint); background: var(--card-bg); }
 .form-note { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 0.82em; }
 .form-note i { color: var(--secondary-color); }
 .btn-submit { justify-content: center; width: 100%; margin-top: 2px; }
@@ -970,7 +1077,7 @@ body.high-contrast .btn-quiet { border-color: var(--border-color); }
     .action-intro { padding: 28px 22px 32px; }
     .action-intro .btn-quiet { margin-bottom: 34px; }
     .action-intro h1 { font-size: 1.7em; }
-    .action-form-panel { padding: 28px 22px; }
+    .action-form-panel { padding: 28px 22px; border-left: 0; border-top: 1px solid var(--border-color); }
     .field-grid { grid-template-columns: 1fr; gap: 19px; }
 
    
@@ -1205,36 +1312,4 @@ body.high-contrast .btn-quiet { border-color: var(--border-color); }
         flex-wrap: wrap;
         border-radius: 16px;
     }
-    /* Form Field Styles */
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.form-label {
-    display: block;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #1a202c;
-    margin-bottom: 8px;
-}
-
-.form-select {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 1rem;
-    color: #1a202c;
-    background-color: #ffffff;
-    border: 2px solid #cbd5e1;
-    border-radius: 8px;
-    cursor: pointer;
-    appearance: auto; /* Retains default arrow icon across browsers */
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.form-select:focus {
-    border-color: #1a365d;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.2);
-}
 }

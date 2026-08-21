@@ -11,7 +11,7 @@ const translations = {
         home: 'Home', aboutContact: 'About Us and Contact', informationEthics: 'Information Ethics',
         startLearning: 'Start learning', scamChecker: 'Scam Checker', searchTopics: 'Search safety topics...',
         heroTitle: 'Navigate the Digital World with Confidence & Safety',
-        heroSubtitle: 'SilverAssit empowers older adults to access, evaluate, and share digital information safely and responsibly.',
+        heroSubtitle: 'SilverAssist empowers older adults to access, evaluate, and share digital information safely and responsibly.',
         startLearningNow: 'Start Learning Now', checkLink: 'Check a Link for Scams'
     },
     af: {
@@ -19,7 +19,7 @@ const translations = {
         home: 'Tuis', aboutContact: 'Oor ons en kontak', informationEthics: 'Inligtingsetiek',
         startLearning: 'Begin leer', scamChecker: 'Bedrogkontroleerder', searchTopics: 'Soek veiligheidsonderwerpe...',
         heroTitle: 'Navigeer die digitale wereld met vertroue en veiligheid',
-        heroSubtitle: 'SilverAssit help ouer volwassenes om digitale inligting veilig en verantwoordelik te gebruik, te evalueer en te deel.',
+        heroSubtitle: 'SilverAssist help ouer volwassenes om digitale inligting veilig en verantwoordelik te gebruik, te evalueer en te deel.',
         startLearningNow: 'Begin nou leer', checkLink: 'Kontroleer skakels vir bedrog'
     },
     zu: {
@@ -27,7 +27,7 @@ const translations = {
         home: 'Ikhaya', aboutContact: 'Mayelana nathi nokuxhumana', informationEthics: 'Izimiso zolwazi',
         startLearning: 'Qala ukufunda', scamChecker: 'Isihloli sobuqili', searchTopics: 'Sesha izihloko zokuphepha...',
         heroTitle: 'Sebenzisa umhlaba wedijithali ngokuzethemba nangokuphepha',
-        heroSubtitle: 'ISilverAssit isiza abantu abadala ukuthi bathole, bahlole futhi babelane ngolwazi lwedijithali ngokuphepha nangokuzibophezela.',
+        heroSubtitle: 'SilverAssist isiza abantu abadala ukuthi bathole, bahlole futhi babelane ngolwazi lwedijithali ngokuphepha nangokuzibophezela.',
         startLearningNow: 'Qala ukufunda manje', checkLink: 'Hlola isixhumanisi sobuqili'
     }
 };
@@ -571,6 +571,7 @@ function init() {
     applyFontSize();
     applyTheme();
     bindLanguageSelector();
+    bindWorkshopDateSelector();
     applyLanguage(appState.language);
 
     window.navigateTo = navigateTo;
@@ -584,6 +585,22 @@ function init() {
 function bindLanguageSelector() {
     const selector = document.getElementById('language-select');
     if (selector) selector.addEventListener('change', (event) => applyLanguage(event.target.value));
+}
+
+function bindWorkshopDateSelector() {
+    const residenceSelector = document.getElementById('old-age-home');
+    const dateGroup = document.getElementById('workshop-date-group');
+    const dateSelector = document.getElementById('workshop-date');
+    if (!residenceSelector || !dateGroup || !dateSelector) return;
+
+    residenceSelector.addEventListener('change', () => {
+        const hasResidence = residenceSelector.value !== '';
+        dateGroup.classList.toggle('hidden', !hasResidence);
+        dateGroup.setAttribute('aria-hidden', (!hasResidence).toString());
+        dateSelector.required = hasResidence;
+
+        if (!hasResidence) dateSelector.value = '';
+    });
 }
 
 function applyLanguage(language) {
