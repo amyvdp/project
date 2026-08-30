@@ -316,6 +316,46 @@ body > .skiptranslate {
     font-size: 0.95rem;
 }
 
+/* ---------- Search results dropdown ---------- */
+.search-results-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-hover);
+    overflow: hidden;
+    z-index: 60;
+}
+
+.search-results-dropdown.hidden { display: none; }
+
+.search-result-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.search-result-item:last-child { border-bottom: none; }
+.search-result-item:hover { background: var(--secondary-tint); }
+
+.search-result-empty {
+    color: var(--text-muted);
+    font-weight: 500;
+    cursor: default;
+}
+.search-result-empty:hover { background: var(--card-bg); }
+
 /* ---------- Nav menu ---------- */
 .nav-menu {
     display: flex;
@@ -1028,6 +1068,20 @@ body.high-contrast .btn-quiet { border-color: var(--border-color); }
 .app-icon-gmail { background: #EA4335; }
 .app-icon-google { background: #4285F4; }
 .app-icon-facebook { background: #1877F2; }
+
+/* ---------- Form success message (search / workshop / contact forms) ---------- */
+.form-success-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    background: var(--secondary-tint);
+    border-left: 5px solid var(--success);
+    color: var(--secondary-dark);
+    font-weight: 700;
+}
+.form-success-message i { color: var(--success); }
 
 /* Sub-headings that split a guide into stages (e.g. "Creating your account") */
 .card .step-list + h2,
