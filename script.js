@@ -67,7 +67,7 @@ const searchIndex = [
   { keywords: 'about us contact team university pretoria', page: 'aboutus', label: 'About Us and Contact' },
   { keywords: 'information ethics literacy', page: 'about', label: 'Information Ethics' },
   { keywords: 'start learning safety stay safe topics', page: 'safety', label: 'Start Learning' },
-  { keywords: 'workshop in person sign up old age home schedule', page: 'factcheck', label: 'In-Person Workshops' },
+  { keywords: 'workshop in person sign up retirement home schedule', page: 'factcheck', label: 'In-Person Workshops' },
   { keywords: 'scam checker link checker phishing url analyze', page: 'linkchecker', label: 'Scam Link Checker' },
   { keywords: 'digital skills tutorials apps whatsapp gmail google facebook', page: 'skills', label: 'Digital Skills' },
   { keywords: 'quiz avoid scamming test questions', page: 'quiz', label: 'Avoid Scamming Quiz' },
@@ -78,7 +78,7 @@ const searchIndex = [
   { keywords: 'google search searching internet results', page: 'googlesearch', label: 'How to Use Google Search' },
   { keywords: 'facebook social media friends post', page: 'facebook', label: 'How to Use Facebook' },
   { keywords: 'workshop registration sign up form register', page: 'signup', label: 'Workshop Sign-Up' },
-  { keywords: 'contact partner old age home request message', page: 'contact', label: 'Contact Us' }
+  { keywords: 'contact partner retirement home request message', page: 'contact', label: 'Contact Us' }
 ];
 
 let currentPage = 'home';
