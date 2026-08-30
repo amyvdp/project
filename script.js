@@ -49,6 +49,9 @@ const pageMap = {
     linkchecker: 'page-linkchecker',
     skills: 'page-skills',
     quiz: 'page-quiz',
+    quiz1: 'page-quiz1',
+    quiz2: 'page-quiz2',
+    quiz3: 'page-quiz3',
     resources: 'page-resources',
     apps: 'page-apps',
     whatsapp: 'page-whatsapp',
@@ -568,6 +571,9 @@ function init() {
     bindAccessibilityButtons();
     renderCategoryButtons();
     renderQuiz();
+    renderQuizPage('quiz1');
+    renderQuizPage('quiz2');
+    renderQuizPage('quiz3');
     applyFontSize();
     applyTheme();
     bindLanguageSelector();
@@ -580,6 +586,12 @@ function init() {
     window.nextQuestion = nextQuestion;
     window.resetQuiz = resetQuiz;
     window.selectCategory = selectCategory;
+    window.openQuizPage = openQuizPage;
+    window.openDigitalSkillsQuiz = openDigitalSkillsQuiz;
+    window.renderQuizPage = renderQuizPage;
+    window.handleQuizPageAnswer = handleQuizPageAnswer;
+    window.nextQuizPageQuestion = nextQuizPageQuestion;
+    window.resetQuizPage = resetQuizPage;
 }
 
 function bindLanguageSelector() {
@@ -645,8 +657,17 @@ function renderCategoryButtons() {
     const categoryContainer = document.getElementById('quiz-category-selector');
     if (!categoryContainer) return;
 
+    const visibleCategories = Object.keys(quizCategories).filter((key) => key !== 'quiz4');
+
+    if (currentCategory === 'quiz4') {
+        categoryContainer.innerHTML = '';
+        categoryContainer.style.display = 'none';
+        return;
+    }
+
+    categoryContainer.style.display = 'block';
     categoryContainer.innerHTML = '';
-    Object.keys(quizCategories).forEach((key) => {
+    visibleCategories.forEach((key) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = `btn ${key === currentCategory ? 'btn-primary' : 'btn-outline-secondary'}`;
@@ -668,6 +689,99 @@ function selectCategory(catKey) {
 
     renderCategoryButtons();
     renderQuiz();
+}
+
+function openQuizPage(pageKey) {
+    if (!quizCategories[pageKey]) return;
+    currentCategory = pageKey;
+    quizIndex = 0;
+    quizScore = 0;
+    navigateTo(pageKey);
+    renderQuizPage(pageKey);
+}
+
+function openDigitalSkillsQuiz() {
+    currentCategory = 'quiz4';
+    quizIndex = 0;
+    quizScore = 0;
+    navigateTo('quiz4');
+    renderQuizPage('quiz4');
+}
+
+function renderQuizPage(pageKey) {
+    const container = document.getElementById(`quiz-page-${pageKey}`);
+    if (!container || !quizCategories[pageKey]) return;
+
+    const activeQuiz = quizCategories[pageKey];
+    if (quizIndex >= activeQuiz.questions.length) {
+        container.innerHTML = `
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('quiz')"><i class="fa-solid fa-arrow-left"></i> Back to Avoid Scamming</button>
+                <h1>${activeQuiz.title}</h1>
+                <h2>Quiz Completed!</h2>
+                <p>Score: <strong>${quizScore}</strong> / ${activeQuiz.questions.length}</p>
+                <button class="btn btn-primary" onclick="resetQuizPage('${pageKey}')">Retake Quiz</button>
+            </div>
+        `;
+        return;
+    }
+
+    const q = activeQuiz.questions[quizIndex];
+    const optionMarkup = q.options.map((opt, idx) => {
+        return `<button type="button" class="btn btn-outline-primary option-btn" style="display:block;width:100%;margin:8px 0;text-align:left;" onclick="handleQuizPageAnswer('${pageKey}', ${idx})">${opt}</button>`;
+    }).join('');
+
+    container.innerHTML = `
+        <div class="card">
+            <button class="btn btn-secondary" onclick="navigateTo('quiz')"><i class="fa-solid fa-arrow-left"></i> Back to Avoid Scamming</button>
+            <h1>${activeQuiz.title}</h1>
+            <span>Question ${quizIndex + 1} of ${activeQuiz.questions.length}</span>
+            <h2>${q.question}</h2>
+            <div class="options-container">${optionMarkup}</div>
+            <div id="quiz-feedback-${pageKey}" class="quiz-feedback hidden"></div>
+        </div>
+    `;
+}
+
+function handleQuizPageAnswer(pageKey, selectedIndex) {
+    const activeQuiz = quizCategories[pageKey];
+    if (!activeQuiz) return;
+
+    const q = activeQuiz.questions[quizIndex];
+    const feedbackBox = document.getElementById(`quiz-feedback-${pageKey}`);
+    const buttons = document.querySelectorAll(`#quiz-page-${pageKey} .option-btn`);
+
+    buttons.forEach((btn) => btn.disabled = true);
+
+    if (selectedIndex === q.answer) {
+        quizScore++;
+        feedbackBox.className = 'alert alert-success quiz-feedback';
+        feedbackBox.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+    } else {
+        feedbackBox.className = 'alert alert-danger quiz-feedback';
+        feedbackBox.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+    }
+
+    feedbackBox.classList.remove('hidden');
+
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'btn btn-primary mt-3';
+    nextBtn.textContent = quizIndex + 1 < activeQuiz.questions.length ? 'Next Question' : 'See Results';
+    nextBtn.addEventListener('click', () => nextQuizPageQuestion(pageKey));
+    feedbackBox.appendChild(nextBtn);
+}
+
+function nextQuizPageQuestion(pageKey) {
+    quizIndex++;
+    renderQuizPage(pageKey);
+}
+
+function resetQuizPage(pageKey) {
+    quizIndex = 0;
+    quizScore = 0;
+    currentCategory = pageKey;
+    renderQuizPage(pageKey);
 }
 
 function renderQuiz() {

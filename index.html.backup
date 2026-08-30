@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SilverAssist | Empowering Seniors with Information Literacy</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link to your local CSS stylesheet -->
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+    <!-- Accessibility Control Bar -->
+    <aside class="accessibility-bar" aria-label="Accessibility Controls">
+        <div class="container accessibility-container">
+            <span class="accessibility-title"><i class="fa-solid fa-universal-access"></i> <span data-i18n="accessibility">Accessibility</span>:</span>
+            <div class="accessibility-buttons">
+                <label class="language-picker" for="language-select">
+                    <i class="fa-solid fa-language" aria-hidden="true"></i>
+                    <span class="sr-only">Choose language</span>
+                    <select id="language-select" aria-label="Choose language">
+                        <option value="en">English</option>
+                        <option value="af">Afrikaans</option>
+                        <option value="zu">isiZulu</option>
+                    </select>
+                </label>
+                <div id="google_translate_element" class="google-translate-hidden" aria-hidden="true"></div>
+                <button id="btn-decrease-font" class="acc-btn" title="Decrease Text Size">A -</button>
+                <button id="btn-reset-font" class="acc-btn" title="Reset Text Size">Normal</button>
+                <button id="btn-increase-font" class="acc-btn" title="Increase Text Size">A +</button>
+                <button id="btn-toggle-theme" class="acc-btn" title="Toggle High Contrast Dark Mode"><i class="fa-solid fa-moon"></i> <span data-i18n="highContrast">High Contrast</span></button>
+                <button id="btn-read-aloud" class="acc-btn highlight-acc" title="Read Page Aloud"><i class="fa-solid fa-volume-high"></i> <span data-i18n="listenToPage">Listen to Page</span></button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="#home" class="logo" onclick="navigateTo('home')">
+                 <img src="logo.png" alt="SilverAssist Logo">
+        
+            </a>
+
+            <!-- Mobile Menu Toggle (visible on small screens only) -->
+            <button class="acc-btn mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰ Menu</button>
+
+            <!-- Navigation Links -->
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active" onclick="navigateTo('home')"><i class="fa-solid fa-house"></i> <span data-i18n="home">Home</span></a>
+                <a href="#aboutus" class="nav-link" onclick="navigateTo('aboutus')"><i class="fa-solid fa-laptop"></i> <span data-i18n="aboutContact">About Us and Contact</span></a>
+        
+                 <a href="#about" class="nav-link" onclick="navigateTo('about')"><i class="fa-solid fa-book-open"></i> <span data-i18n="informationEthics">Information Ethics</span></a>
+                     <a href="#safety" class="nav-link" onclick="navigateTo('safety')"><i class="fa-solid fa-user-shield"></i> <span data-i18n="startLearning">Start learning</span></a>
+                     <a href="#linkchecker" class="nav-link" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-robot"></i> <span data-i18n="scamChecker">Scam Checker</span></a>
+            
+            </nav>
+
+            <!-- Search Bar -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="global-search" placeholder="Search safety topics..." aria-label="Search safety topics" data-i18n-placeholder="searchTopics">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Sections -->
+    <main id="main-content" class="container">
+
+        <!-- 1. HOME SECTION -->
+        <section id="page-home" class="page-section active-page">
+            <div class="hero-card">
+                <div class="hero-content">
+                    <span class="badge"><i class="fa-solid fa-graduation-cap"></i> INL 370 Project</span>
+                    <h1 data-i18n="heroTitle">Navigate the Digital World with Confidence &amp; Safety</h1>
+                    <p class="hero-subtitle" data-i18n="heroSubtitle">SilverAssist empowers older adults to access, evaluate, and share digital information safely and responsibly.</p>
+                    <div class="hero-cta-group">
+                        <button class="btn btn-primary btn-large" onclick="navigateTo('safety')"><i class="fa-solid fa-shield-heart"></i> <span data-i18n="startLearningNow">Start Learning Now</span></button>
+                        <button class="btn btn-secondary btn-large" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="checkLink">Check a Link for Scams</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="workshops-content">
+            <div class="hero-card">
+                <div class="hero-content">
+                    <h1>Learn online and In-person</h1>
+                    <p class="hero-subtitle">SilverAssist offers online learning and short courses, as well as in-person workshops. SilverAssist has partnered with South African retirement villages to bring the digital workshops to you.</p>
+                    <div class="hero-cta-group">
+                        <button class="btn btn-primary btn-large" onclick="navigateTo('factcheck')"><i class="fa-solid fa-shield-heart"></i> Sign up for in-person workshops</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Progress Tracker -->
+            <div class="card progress-card">
+                <h2><i class="fa-solid fa-chart-line"></i> Your Learning Progress</h2>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="learning-progress-bar" style="width: 0%;">0%</div>
+                </div>
+                <p id="progress-status-text">0 of 4 Modules Explored</p>
+            </div>
+            </div>
+        </section>
+
+       <!-- ABOUT SECTION -->
+<section id="page-aboutus" class="page-section">
+    <div class="card aboutus-shell">
+        <div class="aboutus-hero">
+            <div class="aboutus-hero-copy">
+                <span class="eyebrow"><i class="fa-solid fa-people-group"></i> Our purpose</span>
+                <h1>About SilverAssist</h1>
+                <p>SilverAssist is a student-led project developed by a team from the University of Pretoria, South Africa. Our mission is to empower older adults with essential digital skills and information literacy, enabling them to navigate the digital world safely, confidently, and independently.</p>
+                <h1>Our Mission</h1>
+                <p>We aim to make technology more accessible and less intimidating by providing simple, easy-to-understand guidance on everyday digital tasks, online safety, and identifying potential scams. Through SilverAssist, we strive to help older adults build their digital confidence while staying connected, informed, and protected in an increasingly digital world.</p>
+                <h1>Our commitment to accessibility</h1>
+                <p>Accessibility is at the heart of our design. The platform follows the principles of the Web Content Accessibility Guidelines (WCAG) to ensure that content is clear, perceivable, understandable, and easy to navigate. By applying accessibility-focused design principles, SilverAssist aims to create an inclusive digital experience that supports older adults in becoming more confident, independent, and informed digital users.</p>
+            </div>
+        </div>
+            
+
+        <div class="aboutus-content-block">
+            <h1>Our Team</h1>
+            <p>We are a diverse group of passionate individuals dedicated to making a difference in the lives of older adults through technology.</p>
+        </div>
+
+        <!-- 5-MEMBER TEAM GRID -->
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="team1.jpg" alt="Team Member 1" class="team-photo">
+                </div>
+                <h3 class="team-name">Amy van de putte</h3>
+                <p class="team-role">Core product and technical team</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="team2.jpeg" alt="Team Member 2" class="team-photo">
+                </div>
+                <h3 class="team-name">Kyla Van Vuuren</h3>
+                <p class="team-role">Core product and technical team</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="team3.jpeg" alt="Team Member 3" class="team-photo">
+                </div>
+                <h3 class="team-name">Kiara Dos Santos Fernandes</h3>
+                <p class="team-role">Design and presentation head </p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="team4.jpg" alt="Team Member 4" class="team-photo">
+                </div>
+                <h3 class="team-name">Jade Moore</h3>
+                <p class="team-role">Research and documentation head</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="team5.jpeg" alt="Team Member 5" class="team-photo">
+                </div>
+                <h3 class="team-name">Stacey-Lee Jooste</h3>
+                <p class="team-role">Operations and evaluation head</p>
+            </div>
+        </div>
+
+        <div class="aboutus-content-block contact-block">
+            <h1>Contact Us</h1>
+            <p>If you have any questions, suggestions, or would like to collaborate with us, please reach out:</p>
+            <p class="contact-email"><i class="fa-solid fa-envelope"></i> Email: <a href="mailto:info@silverassist.org">info@silverassist.org</a></p>
+        </div>
+    </div>
+</section>
+
+        <!-- 2. ABOUT SECTION -->
+        <section id="page-about" class="page-section">
+            <div class="card">
+                <h1>Understanding Information Literacy & Ethics</h1>
+                <p>Information literacy is the ability to find, evaluate, use, and share information safely and ethically.</p>
+            </div>
+        </section>
+
+        <!-- 3. SAFETY SECTION -->
+        <section id="page-safety" class="page-section">
+            <div class="card">
+                <span class="eyebrow"><i class="fa-solid fa-user-shield"></i> Start Learning</span>
+                <h1>Start Learning Online</h1>
+                <p>Learn essential digital skills for the modern world. Here you will learn how to use Apps and to navigate the internet safely while avoiding scams.</p>
+            </div>
+            <div class="topic-grid">
+                <div class="card topic-card topic-fact">
+                    <h2><span class="topic-icon"><i class="fa-solid fa-newspaper"></i></span> In person workshops</h2>
+                    <p>Sign up for local workshops hosted at your retirement village to learn about information literacy and digital safety.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('factcheck')">Sign up for workshops</button>
+                </div>
+
+                <div class="card topic-card topic-skills">
+                    <h2><span class="topic-icon"><i class="fa-solid fa-laptop"></i></span> Digital Skills</h2>
+                    <p>Simple guides for Google Search, WhatsApp, Email, and Safe Shopping.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('skills')">Open Digital Skills</button>
+                </div>
+
+                <div class="card topic-card topic-quiz">
+                    <h2><span class="topic-icon"><i class="fa-solid fa-circle-question"></i></span> Avoid Scamming</h2>
+                    <p>A short course to learn how to identify , avoid various types of scams and stay safe on the internet.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('quiz')">Open Avoid Scamming</button>
+                </div>
+
+                <div class="card topic-card topic-resources">
+                    <h2><span class="topic-icon"><i class="fa-solid fa-folder-open"></i></span> Resources</h2>
+                    <p>Downloadable safety checklists and quick reference guides.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('resources')">Open Resources</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. FACT CHECK SECTION -->
+        <section id="page-factcheck" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('safety')"><i class="fa-solid fa-arrow-left"></i> Back to Stay Safe</button>
+                <h1>Sign up for In-Person Workshops</h1>
+                <p>SilverAssist has partnered with retirement villages to provide local workshops on information literacy and digital safety. Bringing critical information to you.</p>
+                <h2> We have partnered with these retirement villages:</h2>
+                <ul class="workshop-list">
+                    <li class="workshop-item"><i class="fa-solid fa-check"></i> Retirement Village 1</li>
+                    <li class="workshop-item"><i class="fa-solid fa-check"></i> Retirement Village 2</li>
+                    <li class="workshop-item"><i class="fa-solid fa-check"></i> Retirement Village 3</li>
+                </ul>
+                <h3>Upcoming Workshops</h3>
+                <ul class="workshop-list">
+                    <li class="workshop-item"><i class="fa-solid fa-calendar-days"></i> Workshop 1: Date, Time, Location</li>
+                    <li class="workshop-item"><i class="fa-solid fa-calendar-days"></i> Workshop 2: Date, Time, Location</li>
+                    <li class="workshop-item"><i class="fa-solid fa-calendar-days"></i> Workshop 3: Date, Time, Location</li>   
+                </ul>
+                <button class="btn btn-primary" onclick="navigateTo('signup')">Sign up for workshops</button>
+                <h2> If we are not yet partnered with your retirement village:</h2>
+                <p>Let us know by clicking the button below. <br>Tell us which retirement village you would like to see us partner with <br>and we will contact them on your behalf.</p>
+                <button class="btn btn-primary" onclick="navigateTo('contact')">Contact us</button> 
+            </div>
+        </section>
+
+        <!-- 5. SCAM LINK CHECKER -->
+        <section id="page-linkchecker" class="page-section">
+            <div class="card scanner-card">
+                <h1>Scam Link Checker</h1>
+                <div class="input-group">
+                    <input type="text" id="link-input" class="form-input" placeholder="Paste link or text here...">
+                    <button class="btn btn-primary" onclick="analyzeLink()">Analyze Link</button>
+                </div>
+                <div id="scan-loading" class="scan-loading hidden">Analyzing security...</div>
+                <div id="scan-result" class="scan-result hidden">
+                    <div id="result-status-badge" class="status-badge">STATUS</div>
+                    <h3 id="result-title">Result</h3>
+                    <p id="result-explanation">Explanation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. DIGITAL SKILLS -->
+        <section id="page-skills" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('safety')"><i class="fa-solid fa-arrow-left"></i> Back to Stay Safe</button>
+                <h1>Digital Skills Tutorials</h1>
+                <p>Simple guides for Google Search, WhatsApp, Email, and Safe Shopping.</p>
+            </div>
+            <div class="card">
+                <h2><span class="app-icon app-icon-apps"><i class="fa-solid fa-mobile-screen-button"></i></span> How to download Apps</h2>
+                <p>Learn how to use Google Play Store and the App Store to download apps safely.</p>
+                <button class="btn btn-primary" onclick="navigateTo('apps')">Learn to Download Apps</button>
+            </div>
+            <div class="card">
+                <h2><span class="app-icon app-icon-whatsapp"><i class="fa-brands fa-whatsapp"></i></span> How to use WhatsApp</h2>
+                <p>Learn how to use WhatsApp to communicate safely and effectively.</p>
+                <button class="btn btn-primary" onclick="navigateTo('whatsapp')">Learn to Use WhatsApp</button>
+            </div>
+            <div class="card">
+                <h2><span class="app-icon app-icon-gmail"><i class="fa-solid fa-envelope"></i></span> Writing & Sending Gmail</h2>
+                <p>Learn how to write, send, and reply to emails safely using Gmail.</p>
+                <button class="btn btn-primary" onclick="navigateTo('gmail')">Learn Gmail</button>
+            </div>
+            <div class="card">
+                <h2><span class="app-icon app-icon-google"><i class="fa-brands fa-google"></i></span> How to Use Google Search</h2>
+                <p>Learn how to search the web effectively and spot trustworthy results.</p>
+                <button class="btn btn-primary" onclick="navigateTo('googlesearch')">Learn Google Search</button>
+            </div>
+            <div class="card">
+                <h2><span class="app-icon app-icon-facebook"><i class="fa-brands fa-facebook-f"></i></span> How to Use Facebook</h2>
+                <p>Learn how to connect with family and friends safely on Facebook.</p>
+                <button class="btn btn-primary" onclick="navigateTo('facebook')">Learn Facebook</button>
+            </div>
+            <div class="card">
+                <h2><i class="fa-solid fa-clipboard-question"></i> Quiz 4: Useful Apps for Everyday Life</h2>
+                <p>Test your knowledge of everyday apps like banking, Maps, WhatsApp, and grocery delivery tools.</p>
+                <button class="btn btn-primary" onclick="openDigitalSkillsQuiz()">Take Quiz 4</button>
+            </div>
+            <div class="card">
+                <h2><i class="fa-solid fa-heart"></i> Remember</h2>
+                <ul class="capability-list">
+                    <li><i class="fa-solid fa-circle-check"></i> You can use SilverAssist whenever you need help.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> You do not need to complete the guides in order.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> If you are unsure how to do something: stop and read the instructions again, look at the picture for that step, and follow one step at a time.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Use the links on SilverAssist to move to another guide when you need help.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Take your time. There is no need to rush.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 7. QUIZ SECTION -->
+        <section id="page-quiz" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('safety')"><i class="fa-solid fa-arrow-left"></i> Back to Stay Safe</button>
+                <h1>Avoid Scamming</h1>
+                <p>Choose the quiz you want to complete.</p>
+
+                <div class="topic-grid">
+                    <div class="card topic-card topic-quiz">
+                        <h2><span class="topic-icon"><i class="fa-solid fa-shield-halved"></i></span> Lesson 1</h2>
+                        <p>Scam Safety Basics</p>
+                        <button class="btn btn-primary" onclick="openQuizPage('quiz1')">Open Lesson 1</button>
+                    </div>
+                    <div class="card topic-card topic-quiz">
+                        <h2><span class="topic-icon"><i class="fa-solid fa-user-shield"></i></span> Lesson 2</h2>
+                        <p>Common Types of Scams</p>
+                        <button class="btn btn-primary" onclick="openQuizPage('quiz2')">Open Lesson 2</button>
+                    </div>
+                    <div class="card topic-card topic-quiz">
+                        <h2><span class="topic-icon"><i class="fa-solid fa-globe"></i></span> Lesson 3</h2>
+                        <p>Internet Safety</p>
+                        <button class="btn btn-primary" onclick="openQuizPage('quiz3')">Open Lesson 3</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-quiz1" class="page-section" hidden>
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('quiz')"><i class="fa-solid fa-arrow-left"></i> Back to Lessons</button>
+                <h1><i class="fa-solid fa-shield-halved"></i> Lesson 1: How to Identify a Scam</h1>
+                
+                <div class="lesson-intro">
+                    <h2>💬 Introduction</h2>
+                    <p>Scammers try to trick you into giving them money or personal information.</p>
+                    <p>They may pretend to be people or organisations you trust, such as your bank, the government, or a delivery company.</p>
+                </div>
+
+                <div class="lesson-section">
+                    <h2>📚 What You Will Learn</h2>
+                    <p>After this lesson, you will know how to:</p>
+                    <ul class="learning-objectives">
+                        <li>Recognise a scam</li>
+                        <li>Spot warning signs in messages and phone calls</li>
+                        <li>Protect your passwords, PIN and OTP</li>
+                        <li>Identify suspicious links and attachments</li>
+                        <li>Check whether a message is genuine</li>
+                    </ul>
+                </div>
+
+                <div class="lesson-section">
+                    <h2>📖 Key Concepts</h2>
+
+                    <div class="concept-box">
+                        <h3>🏦 Scammers May Pretend to Be Someone You Trust</h3>
+                        <p>A scammer may pretend to be:</p>
+                        <ul class="concept-list">
+                            <li>Your bank</li>
+                            <li>The police</li>
+                            <li>A government department</li>
+                            <li>A delivery company</li>
+                        </ul>
+                        <p><strong>Important:</strong> They may ask you for personal information.</p>
+                        <div class="warning-box">
+                            <strong>Remember:</strong> Never give an unexpected caller or message your password, PIN, OTP or banking details.
+                        </div>
+                    </div>
+
+                    <div class="concept-box">
+                        <h3>🔐 Keep Your Private Information Private</h3>
+
+Never give your:
+
+Password
+
+PIN
+
+OTP
+
+Banking details
+
+to someone who unexpectedly contacts you.
+
+⏰ Be Careful When Someone Rushes You
+
+Scammers may say:
+
+“Act immediately!”
+
+“Your account will be closed!”
+
+“You must pay now!”
+
+This is a warning sign.
+
+Scammers create urgency to make you act before you have time to think.
+
+🔗 Be Careful With Links
+
+Do not click on a link if you are unsure where it came from.
+
+You should also avoid opening unexpected attachments.
+
+🖼️ Show Me
+
+Add a large picture of a fake scam SMS here.
+
+For example:
+
+🚨 URGENT: Your bank account will be CLOSED today!
+Click here immediately to verify your account:
+www.example-link.com
+
+Put arrows around:
+
+🔴 URGENT
+
+🔴 The suspicious link
+
+🔴 The request to take immediate action
+
+👀 What should you notice?
+
+The message is trying to rush you.
+
+The link may be unsafe.
+
+You should not click it.
+
+⚠️ Important
+Never give someone your:
+
+🔐 Password
+🔢 PIN
+🔑 OTP
+💳 Banking details
+
+If someone asks for these unexpectedly, stop and check first.
+
+📝 Example
+
+You receive this message:
+
+“Your bank account has a problem. Click this link within 10 minutes or your account will be closed.”
+
+What should you do?
+
+❌ Don't click the link.
+
+❌ Don't reply with your banking details.
+
+✅ Contact your bank using its official phone number or website.
+                    </div>
+                </div>
+
+                <div class="lesson-section important-reminder">
+                    <h2>⚠️ Important Reminders</h2>
+                    <div class="reminder-box">
+                        <p><strong>Never give someone your:</strong></p>
+                        <ul class="sensitive-info">
+                            <li><i class="fa-solid fa-lock"></i> Password</li>
+                            <li><i class="fa-solid fa-key"></i> PIN</li>
+                            <li><i class="fa-solid fa-key"></i> OTP</li>
+                            <li><i class="fa-solid fa-credit-card"></i> Banking details</li>
+                        </ul>
+                        <p><strong>If someone asks for these unexpectedly, stop and check first.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-quiz2" class="page-section" hidden>
+            <div id="quiz-page-quiz2"></div>
+        </section>
+
+        <section id="page-quiz3" class="page-section" hidden>
+            <div id="quiz-page-quiz3"></div>
+        </section>
+
+        <!-- 8. RESOURCES SECTION -->
+        <section id="page-resources" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('safety')"><i class="fa-solid fa-arrow-left"></i> Back to Stay Safe</button>
+                <h1>Resources & FAQs</h1>
+                <p>Downloadable safety checklists and quick reference guides.</p>
+            </div>
+        </section>
+
+        <!-- 9. DOWNLOADABLE APPS SECTION -->
+        <section id="page-apps" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
+                <span class="eyebrow"><i class="fa-solid fa-mobile-screen-button"></i> Digital Skills</span>
+                <h1><span class="app-icon app-icon-apps app-icon-lg"><i class="fa-solid fa-mobile-screen-button"></i></span> How to Download an App</h1>
+                <p>Apps are programs that you can use on your phone. Examples include WhatsApp, Gmail, Facebook, and Google Maps.</p>
+                <p>Before you can use an app, you need to download it.</p>
+
+                <p class="visual-guide-heading"><i class="fa-solid fa-eye"></i> Which store does your phone use?</p>
+                <div class="icon-callout-grid">
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-apple"><i class="fa-brands fa-apple"></i></span>
+                        <p class="icon-callout-label">iPhone</p>
+                        <p class="icon-callout-desc">Use the <strong>App Store</strong>. Look for a blue icon with a white "A" shape on your home screen.</p>
+                    </div>
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-playstore"><i class="fa-brands fa-google-play"></i></span>
+                        <p class="icon-callout-label">Android phone</p>
+                        <p class="icon-callout-desc">Use the <strong>Google Play Store</strong>. Look for a colourful triangle-shaped icon on your home screen.</p>
+                    </div>
+                </div>
+
+                <div class="step-note step-note-important">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Important:</strong> Only download apps from the official App Store or Google Play Store. Be careful when downloading apps from links in messages or emails.
+                </div>
+
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p><strong>Open the app store.</strong> Look at your phone's home screen. Find the App Store if you have an iPhone, or the Google Play Store if you have an Android phone. Tap the icon to open it.</p>
+                        <img class="step-image" src="App_icons.jpg" alt="App Store icons" width="300" height="300"> 
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p><strong>Find the Search button.</strong> Look for "Search" — it may look like a magnifying glass <i class="fa-solid fa-magnifying-glass"></i>. Tap Search.</p>
+                         <img class="step-image" src="searchbar.png" alt="App Store icons" width="500" height="500">
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p><strong>Search for the app.</strong> A search box will appear. Tap inside it and your keyboard will appear. Type the name of the app you want.</p>
+                        <div class="example-box"><span class="example-label">Example</span>If you want WhatsApp, type: <strong>WhatsApp</strong>, then tap Search or press Enter on your keyboard.</div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p><strong>Choose the correct app.</strong> You will see a list of apps. Check the name and picture of the app carefully before downloading it, then tap the app you want.</p>
+                    <div class="example-box"><span class="example-label">Example</span>For WhatsApp, look for the app with the name <strong>WhatsApp Messenger</strong> and a green icon with a white speech bubble and telephone inside. <img class="step-image" src="searching.png" alt="searching" width="300" height="300"></div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">5</span>
+                        <p><strong>Download the app.</strong> The app's information page will open. Look for a button that says "Get", "Install", or has a download icon, and tap it.</p>
+                        <img class="step-image" src="intall.png" alt="Download app" width="300" height="300">
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">6</span>
+                        <p><strong>Confirm the download.</strong> Your phone may ask you to confirm — you may need to enter your password, use your fingerprint, or use Face ID. Follow the instructions shown on your phone.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">7</span>
+                        <p><strong>Wait for the download.</strong> The app will begin downloading; this may take a few moments. When it is finished, you can tap Open to use the app. It will also usually appear on your phone's home screen.</p>
+                    </li>
+                </ol>
+
+                <div class="step-note">
+                    <i class="fa-solid fa-circle-info"></i> <strong>Need help?</strong> If you are unsure how to download an app, you can return to this page from any of our app instructions.
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. WHATSAPP SECTION -->
+        <section id="page-whatsapp" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
+                <span class="eyebrow"><i class="fa-brands fa-whatsapp"></i> Digital Skills</span>
+                <h1><span class="app-icon app-icon-whatsapp app-icon-lg"><i class="fa-brands fa-whatsapp"></i></span> How to Use WhatsApp</h1>
+                <p>WhatsApp is an app that uses the internet to let you:</p>
+                <img src="whatsapp-icon.png" alt="WhatsApp logo" width="200" height="200">
+                <ul class="capability-list">
+                    <li><i class="fa-solid fa-message"></i> Send messages</li>
+                    <li><i class="fa-solid fa-image"></i> Send photographs</li>
+                    <li><i class="fa-solid fa-microphone"></i> Send voice messages</li>
+                    <li><i class="fa-solid fa-phone"></i> Make phone calls</li>
+                    <li><i class="fa-solid fa-video"></i> Make video calls</li>
+                </ul>
+
+                <div class="step-note">
+                    <i class="fa-solid fa-circle-info"></i> <strong>Need help downloading WhatsApp?</strong> If you are unsure how to download an app, refer to our <a href="#apps" onclick="navigateTo('apps')">download instructions</a>.
+                </div>
+                 <div class="step-note">
+                    <i class="fa-solid fa-wifi"></i> <strong>Tip:</strong> make sure your phone has an internet connection, and that your camera and microphone are working.
+                </div>
+
+                <p class="visual-guide-heading"><i class="fa-solid fa-eye"></i> What to look for on your screen:</p>
+                <div class="icon-callout-grid">
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-send"><i class="fa-solid fa-paper-plane"></i></span>
+                        <p class="icon-callout-label">Send button</p>
+                        <p class="icon-callout-desc">A round green button with a white paper aeroplane. Tap it to send your message.</p>
+                    </div>
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-mic"><i class="fa-solid fa-microphone"></i></span>
+                        <p class="icon-callout-label">Microphone button</p>
+                        <p class="icon-callout-desc">A small microphone shape inside the text box. Press and hold it to record a voice message.</p>
+                    </div>
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-call"><i class="fa-solid fa-phone"></i></span>
+                        <p class="icon-callout-label">Phone call button</p>
+                        <p class="icon-callout-desc">A phone-shaped icon at the top of the chat. Tap it to make a voice call.</p>
+                    </div>
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-video"><i class="fa-solid fa-video"></i></span>
+                        <p class="icon-callout-label">Video call button</p>
+                        <p class="icon-callout-desc">A small video camera icon next to the phone icon. Tap it to make a face-to-face video call.</p>
+                    </div>
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-menu"><i class="fa-solid fa-trash"></i></span>
+                        <p class="icon-callout-label">Delete button</p>
+                        <p class="icon-callout-desc">A small trash-bin icon. Tap it to delete a voice message before sending it, if you make a mistake.</p>
+                    </div>
+                </div>
+
+                <h2 class="step-sub-heading">Setting up WhatsApp</h2>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p><strong>Open WhatsApp.</strong> Find the WhatsApp icon on your phone and tap it to open the app.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p><strong>Enter your phone number.</strong> WhatsApp will ask for your mobile phone number. Type it into the box and follow the instructions shown on your screen.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p><strong>Verify your phone number.</strong> WhatsApp may send you a verification code by SMS — a short number used to check that the phone number belongs to you. Type the code into WhatsApp when asked.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p><strong>Open WhatsApp.</strong> After your number has been verified, you will see the WhatsApp home screen. You can now start using WhatsApp.</p>
+                    </li>
+                </ol>
+                <div class="step-note step-note-important">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Important:</strong> Never give your WhatsApp verification code to another person. Someone could use it to try to access your WhatsApp account.
+                </div>
+                <h2 class="step-sub-heading">How to add a contact</h2>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p><strong>Open WhatsApp.</strong> Find the WhatsApp icon on your phone and tap it to open the app.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p><strong>Find the "New Chat" button.</strong> Look for a small green button with a plus sign. Tap it.</p>
+                        <img class="step-image" src="whatapp-contact.jpg" alt="New Chat button" width="300" height="300">
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p><strong>Add a new contact.</strong> Look for "New Contact" or "Add Contact" and tap it.</p>
+                        <img class="step-image" src="whataspp-add.jpeg" alt="Add Contact button" width="300" height="300">
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p><strong>Enter the contact's details.</strong> Type the person's name and phone number into the boxes shown on your screen. When you are finished, tap "Save".</p>
+                        <img class="step-image" src="whatasapp-addnew.jpeg" alt="Enter contact details" width="300" height="300">
+                    </li>
+                </ol>
+
+                <h2 class="step-sub-heading">How to send a message</h2>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p><strong>Open Chats.</strong> Open WhatsApp and tap "Chats" at the bottom of the screen.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p><strong>Find the person you want to message.</strong> Look for the Search box, tap it, and type the person's name.</p>
+                        <div class="example-box"><span class="example-label">Example</span>If your nurse is saved in your phone as "Nurse Jane", type: <strong>Nurse Jane</strong></div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p><strong>Choose the person.</strong> Find the correct person in the list and tap their name.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p><strong>Write your message.</strong> A message box will appear at the bottom of the screen. Tap it and type your message.</p>
+                        <div class="example-box"><span class="example-label">Example</span>Hello Jane. I will see you tomorrow.</div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">5</span>
+                        <p><strong>Send your message.</strong> Look for the Send button — it may look like a small arrow. Tap it. Your message has now been sent.</p>
+                    </li>
+                </ol>
+
+                <h2 class="step-sub-heading">How to send a voice message</h2>
+                <p>A voice message allows you to speak instead of typing.</p>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p>Open the chat with the person you want to contact.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p>Find the microphone button next to the message box.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p>Press and hold the microphone button, and speak while you continue holding it.</p>
+                        <div class="example-box"><span class="example-label">Example</span>"Hello Jane. I just wanted to let you know that I will be home at three o'clock."</div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p>When you have finished speaking, release the microphone button. Your voice message will be sent.</p>
+                    </li>
+                </ol>
+                <div class="step-note">
+                    <i class="fa-solid fa-trash"></i> <strong>Tip:</strong> if you make a mistake, look for the delete or trash-bin button shown on the screen, and tap it to delete the recording instead of sending it.
+                </div>
+
+                <h2 class="step-sub-heading">How to make a phone call</h2>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p>Open WhatsApp and find the person you want to call.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p>Tap the person's name.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p>Look at the top of the screen and find the phone icon.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p>Tap the phone icon. Your phone call will begin.</p>
+                    </li>
+                </ol>
+
+                <h2 class="step-sub-heading">How to make a video call</h2>
+                <p>A video call allows you to see and speak to the other person.</p>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p>Open the chat with the person you want to call.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p>Look at the top of the screen and find the video camera icon.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p>Tap the video camera icon. The video call will begin.</p>
+                    </li>
+                </ol>
+                <div class="step-note">
+                    <i class="fa-solid fa-wifi"></i> <strong>Tip:</strong> make sure your phone has an internet connection, and that your camera and microphone are working.
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. GMAIL SECTION -->
+        <section id="page-gmail" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
+                <span class="eyebrow"><i class="fa-solid fa-envelope"></i> Digital Skills</span>
+                <h1><span class="app-icon app-icon-gmail app-icon-lg"><i class="fa-solid fa-envelope"></i></span> Gmail</h1>
+                <p>Gmail is an email service provided by Google. You can use Gmail to:</p>
+                <ul class="capability-list">
+                    <li><i class="fa-solid fa-paper-plane"></i> Send messages</li>
+                    <li><i class="fa-solid fa-inbox"></i> Receive messages</li>
+                    <li><i class="fa-solid fa-image"></i> Send photographs</li>
+                    <li><i class="fa-solid fa-file-arrow-up"></i> Send documents</li>
+                    <li><i class="fa-solid fa-file-arrow-down"></i> Receive documents</li>
+                </ul>
+                <p>There are other email services, such as iCloud and Yahoo Mail, but these instructions use Gmail.</p>
+                <div class="step-note">
+                    <i class="fa-solid fa-circle-info"></i> <strong>Already have a Gmail account?</strong> You do not need to create another one. Skip ahead to "Writing and sending emails in Gmail" below.
+                </div>
+
+                <h2 class="step-sub-heading">How to create a Gmail account</h2>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p><strong>Open your web browser.</strong> For example, Safari on an iPhone, or Google Chrome on many Android phones.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p><strong>Search for Google.</strong> Tap the search bar and type: <strong>Google sign in</strong>, then tap Search.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p><strong>Create your account.</strong> Look for "Create account" and tap it. If Google asks what the account is for, choose "For my personal use".</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p><strong>Enter your name.</strong> Google will ask for your first name and surname.</p>
+                        <div class="example-box"><span class="example-label">Example</span>First name: John &nbsp;|&nbsp; Surname: Smith</div>
+                        <p>Tap Next.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">5</span>
+                        <p><strong>Choose your email address.</strong> Choose an address that is easy for you to remember. A simple option is your first name, a full stop, and your surname.</p>
+                        <div class="example-box"><span class="example-label">Example</span>If your name is John Smith, you could choose: <strong>John.Smith@gmail.com</strong></div>
+                        <p>Someone else may already have this email address. If that happens, you can add a number, such as your birth year.</p>
+                        <div class="example-box"><span class="example-label">Example</span><strong>John.Smith1945@gmail.com</strong></div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">6</span>
+                        <p><strong>Create a password.</strong> Google will show you the rules your password must follow. Choose a password that is difficult for other people to guess, but that you can remember. You may need to type the password twice.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">7</span>
+                        <p><strong>Complete the remaining steps.</strong> Google may ask for more information, such as a recovery phone number. Follow the instructions shown on your screen. When you have finished, your Google account and Gmail address will be ready to use.</p>
+                    </li>
+                </ol>
+                <div class="step-note step-note-important">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Important:</strong> Do not use your ID number in your email address, and do not use other sensitive personal information either. This information could give scammers additional information about you.
+                </div>
+                <div class="step-note step-note-important">
+                    <i class="fa-solid fa-lock"></i> <strong>Important:</strong> Do not share your password with people you do not trust. Keep your login information somewhere safe.
+                </div>
+
+                <h2 class="step-sub-heading">Writing and sending emails in Gmail</h2>
+                <div class="step-note">
+                    <i class="fa-solid fa-circle-info"></i> <strong>Need help downloading Gmail?</strong> If you are unsure how to download an app, follow our <a href="#apps" onclick="navigateTo('apps')">download instructions</a>.
+                </div>
+
+                <p class="visual-guide-heading"><i class="fa-solid fa-eye"></i> What to look for on your screen:</p>
+                <div class="icon-callout-grid">
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-pencil"><i class="fa-solid fa-pencil"></i></span>
+                        <p class="icon-callout-label">Compose button</p>
+                        <p class="icon-callout-desc">A round button with a pencil, usually in the bottom corner of the screen. Tap it to write a new email.</p>
+                    </div>
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-send"><i class="fa-solid fa-paper-plane"></i></span>
+                        <p class="icon-callout-label">Send button</p>
+                        <p class="icon-callout-desc">A paper aeroplane icon at the top of your email. Tap it once you are ready to send.</p>
+                    </div>
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-menu"><i class="fa-solid fa-bars"></i></span>
+                        <p class="icon-callout-label">Menu button</p>
+                        <p class="icon-callout-desc">Three stacked lines at the top of the screen. Tap it to see folders like Sent and Inbox.</p>
+                    </div>
+                </div>
+
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p><strong>Open Gmail.</strong> Find the Gmail app on your phone and tap it to open Gmail. Sign in using your Gmail address and password if necessary.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p><strong>Start a new email.</strong> Look for the Compose button — it may look like a pencil. Tap it.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p><strong>Choose who will receive the email.</strong> Find the box labelled "To" and type the person's email address.</p>
+                        <div class="example-box"><span class="example-label">Example</span>janesmith@gmail.com</div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p><strong>Add a subject.</strong> The Subject tells the person what your email is about. Keep your subject short.</p>
+                        <div class="example-box"><span class="example-label">Example</span>Doctor's appointment</div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">5</span>
+                        <p><strong>Write your message.</strong> Tap the large empty area underneath the subject and type your message.</p>
+                        <div class="example-box"><span class="example-label">Example</span>Hello Jane,<br>I would like to confirm my appointment for Tuesday at 10:00.<br>Kind regards,<br>John</div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">6</span>
+                        <p><strong>Send the email.</strong> When you are finished, find the Send button and tap it. Your email will now be sent.</p>
+                    </li>
+                </ol>
+                <div class="step-note">
+                    <i class="fa-solid fa-wifi"></i> <strong>Tip:</strong> make sure your phone is connected to Wi-Fi or mobile data before sending.
+                </div>
+
+                <h2 class="step-sub-heading">How to view emails you have sent</h2>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p>Open Gmail.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p>Tap the menu button — it usually looks like three lines.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p>Tap "Sent". You will now see the emails you have sent.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 12. GOOGLE SEARCH SECTION -->
+        <section id="page-googlesearch" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
+                <span class="eyebrow"><i class="fa-brands fa-google"></i> Digital Skills</span>
+                <h1><span class="app-icon app-icon-google app-icon-lg"><i class="fa-brands fa-google"></i></span> How to Use Google Search</h1>
+                <p>Google is a search engine. You can use Google to find:</p>
+                <ul class="capability-list">
+                    <li><i class="fa-solid fa-circle-info"></i> Information</li>
+                    <li><i class="fa-solid fa-globe"></i> Websites</li>
+                    <li><i class="fa-solid fa-newspaper"></i> News</li>
+                    <li><i class="fa-solid fa-store"></i> Shops</li>
+                    <li><i class="fa-solid fa-location-dot"></i> Directions</li>
+                    <li><i class="fa-solid fa-circle-question"></i> Answers to questions</li>
+                </ul>
+
+                <p class="visual-guide-heading"><i class="fa-solid fa-eye"></i> What to look for on your screen:</p>
+                <div class="icon-callout-grid">
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-search"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <p class="icon-callout-label">Search box</p>
+                        <p class="icon-callout-desc">A long bar near the top of the screen. Tap it to start typing.</p>
+                    </div>
+                </div>
+
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p><strong>Open Google.</strong> Open the Google app, or your web browser.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p><strong>Find the search box.</strong> Look for the search box and tap inside it.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p><strong>Type what you want to find.</strong> Type a question or words about what you want to find.</p>
+                        <div class="example-box"><span class="example-label">Example</span>What time does Checkers close?</div>
+                        <p>Then tap Search or press Enter.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p><strong>Look at the results.</strong> Google will show you a list of results. Read them and look for one that seems to answer your question.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">5</span>
+                        <p><strong>Open a result.</strong> Tap the website or result that you want to read. The website will open.</p>
+                    </li>
+                </ol>
+                <div class="step-note step-note-important">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Safety tip:</strong> be careful when clicking on unfamiliar websites. Never enter your password, banking information, or ID number into a website unless you are sure that the website is trustworthy.
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. FACEBOOK SECTION -->
+        <section id="page-facebook" class="page-section">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
+                <span class="eyebrow"><i class="fa-brands fa-facebook"></i> Digital Skills</span>
+                <h1><span class="app-icon app-icon-facebook app-icon-lg"><i class="fa-brands fa-facebook-f"></i></span> How to Use Facebook</h1>
+                <p>Facebook is a social media platform. You can use Facebook to:</p>
+                <ul class="capability-list">
+                    <li><i class="fa-solid fa-people-group"></i> Keep in contact with family and friends</li>
+                    <li><i class="fa-solid fa-message"></i> Send messages</li>
+                    <li><i class="fa-solid fa-image"></i> Share photographs</li>
+                    <li><i class="fa-solid fa-newspaper"></i> See updates from people you know</li>
+                </ul>
+                <div class="step-note">
+                    <i class="fa-solid fa-circle-info"></i> <strong>Need help downloading Facebook?</strong> If you are unsure how to download an app, follow our <a href="#apps" onclick="navigateTo('apps')">download instructions</a>.
+                </div>
+
+                <h2 class="step-sub-heading">How to create a Facebook account</h2>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p><strong>Open Facebook.</strong> Find the Facebook app on your phone and tap it to open Facebook.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p><strong>Create an account.</strong> If you do not already have a Facebook account, tap "Create New Account". If you already have an account, tap "Log In".</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p><strong>Enter your information.</strong> Facebook will ask for information such as your name, email address or phone number, password, and date of birth. Follow the instructions shown on your screen.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p><strong>Create your account.</strong> When you have entered the required information, tap "Sign Up". Facebook may send a verification code to your phone or email address — follow the instructions to finish creating your account.</p>
+                    </li>
+                </ol>
+                <div class="step-note step-note-important">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Safety tip:</strong> think carefully about the personal information you share on Facebook. Do not publicly share your ID number, banking information, passwords, or other sensitive information.
+                </div>
+
+                <h2 class="step-sub-heading">How to find and add friends</h2>
+
+                <p class="visual-guide-heading"><i class="fa-solid fa-eye"></i> What to look for on your screen:</p>
+                <div class="icon-callout-grid">
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-search"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <p class="icon-callout-label">Search bar</p>
+                        <p class="icon-callout-desc">A long bar at the top of the screen with a magnifying glass. Tap it to search for a person's name.</p>
+                    </div>
+                    <div class="icon-callout">
+                        <span class="icon-callout-glyph glyph-friend"><i class="fa-solid fa-user-plus"></i></span>
+                        <p class="icon-callout-label">Add Friend button</p>
+                        <p class="icon-callout-desc">A blue button with a person and a plus sign, next to their profile picture.</p>
+                    </div>
+                </div>
+
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p><strong>Search for a person.</strong> Find the Search box at the top of the screen, tap it, and type the person's name.</p>
+                        <div class="example-box"><span class="example-label">Example</span>Jane Smith</div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p><strong>Find the correct person.</strong> You may see several people with the same name. Look at their profile picture, name, and other information to help you find the correct person.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p><strong>Send a friend request.</strong> When you find the correct person, tap "Add Friend". The person will receive your friend request, and you will become Facebook friends if they accept it.</p>
+                    </li>
+                </ol>
+
+                <h2 class="step-sub-heading">How to accept a friend request</h2>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p>Open Facebook.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p>Find the Friends icon.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p>Find the friend request. Check that you know the person, then tap "Confirm" if you know and trust them.</p>
+                    </li>
+                </ol>
+                <div class="step-note step-note-important">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Safety tip:</strong> do not accept friend requests from people you do not know. If you are unsure whether a profile belongs to someone you know, contact that person another way before accepting the request.
+                </div>
+
+                <h2 class="step-sub-heading">How to make a Facebook post</h2>
+                <ol class="step-list">
+                    <li class="step-item">
+                        <span class="step-number">1</span>
+                        <p>Open Facebook.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">2</span>
+                        <p>At the top of your home page, look for "What's on your mind?" and tap it.</p>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">3</span>
+                        <p><strong>Write your message.</strong> Type what you would like to share. You can also add a photograph if you want to.</p>
+                        <div class="example-box"><span class="example-label">Example</span>Had a lovely lunch with my family today!</div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number">4</span>
+                        <p><strong>Post your message.</strong> When you are ready, tap "Post". Your message will now be shared on Facebook.</p>
+                    </li>
+                </ol>
+                <div class="step-note step-note-important">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Think before you post:</strong> remember that other people may be able to see what you share. Avoid posting private information such as your ID number, passwords, banking information, or home address.
+                </div>
+            </div>
+        </section>
+        <!-- 13. WORKSHOP SIGN-UP SECTION -->
+        <section id="page-signup" class="page-section action-page">
+            <div class="action-shell">
+                <div class="action-intro action-intro-workshops">
+                    <button class="btn btn-quiet" onclick="navigateTo('factcheck')"><i class="fa-solid fa-arrow-left"></i> Back to workshops</button>
+                    <span class="eyebrow"><i class="fa-solid fa-calendar-check"></i> Reserve your place</span>
+                    <h1>Learn together. Stay safer online.</h1>
+                    <p>Join a friendly, practical workshop designed to make everyday digital tasks feel more manageable.</p>
+                    <ul class="action-benefits">
+                        <li><i class="fa-solid fa-circle-check"></i> Clear, step-by-step guidance</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Bring your own questions</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Learn at your own pace</li>
+                    </ul>
+                </div>
+                <div class="action-form-panel">
+                    <div class="form-heading">
+                        <span class="form-icon"><i class="fa-solid fa-pen-to-square"></i></span>
+                        <div>
+                            <h2>Workshop registration</h2>
+                            <p>Tell us where to send the workshop details.</p>
+                        </div>
+                    </div>
+                    <form id="workshop-signup-form" class="action-form">
+                        <div class="field-grid">
+                            <div class="field-group">
+                                <label for="name">Full name</label>
+                                <input type="text" id="name" name="name" placeholder="e.g. Maria Nkosi" required>
+                            </div>
+                            <div class="field-group">
+                                <label for="email">Email address</label>
+                                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                            </div>
+                        </div>
+                        <!-- OLD AGE HOME DROPDOWN FIELD -->
+<div class="form-group">
+    <label for="old-age-home" class="form-label">
+        <i class="fa-solid fa-house-medical"></i> Select Your Retirement Village / Residence:
+    </label>
+    <select id="old-age-home" name="oldAgeHome" class="form-select" required>
+        <option value="" disabled selected>-- Select an Option --</option>
+        <option value="none">Living Independently at Home</option>
+        <option value="muckleneuk">Muckleneuk Retirement Village</option>
+        <option value="bougainvillea">Bougainvillea Retirement Village</option>
+        <option value="silver-villa">Silver Villa Retirement Village</option>
+        <option value="sunnyside">Sunnyside Retirement Village</option>
+        <option value="other">Other (Not Listed)</option>
+    </select>
+</div>
+                        <div id="workshop-date-group" class="form-group hidden" aria-hidden="true">
+                            <label for="workshop-date" class="form-label">
+                                <i class="fa-solid fa-calendar-day"></i> Choose a workshop date:
+                            </label>
+                            <select id="workshop-date" name="workshopDate" class="form-select">
+                                <option value="" disabled selected>-- Select a Date --</option>
+                                <option value="2026-09-05">Saturday, 5 September 2026</option>
+                                <option value="2026-09-12">Saturday, 12 September 2026</option>
+                                <option value="2026-09-19">Saturday, 19 September 2026</option>
+                            </select>
+                        </div>
+                        <p class="form-note"><i class="fa-solid fa-lock"></i> Your details are used only to coordinate this workshop.</p>
+                        <button type="submit" class="btn btn-primary btn-submit"><i class="fa-solid fa-paper-plane"></i> Submit registration</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- 14. CONTACT SECTION -->
+        <section id="page-contact" class="page-section action-page">
+            <div class="action-shell action-shell-contact">
+                <div class="action-intro action-intro-contact">
+                    <button class="btn btn-quiet" onclick="navigateTo('factcheck')"><i class="fa-solid fa-arrow-left"></i> Back to workshops</button>
+                    <span class="eyebrow"><i class="fa-solid fa-handshake"></i> Build a partnership</span>
+                    <h1>Bring digital confidence to your community.</h1>
+                    <p>We would love to hear from retirement villages and community leaders who want to make digital safety more accessible.</p>
+                    <div class="contact-callout"><i class="fa-solid fa-comments"></i><span>Share a little about your home and we will get back to you with next steps.</span></div>
+                </div>
+                <div class="action-form-panel">
+                    <div class="form-heading">
+                        <span class="form-icon"><i class="fa-solid fa-envelope-open-text"></i></span>
+                        <div>
+                            <h2>Start a conversation</h2>
+                            <p>We will use these details to contact you.</p>
+                        </div>
+                    </div>
+                    <form id="contact-form" class="action-form">
+                        <div class="field-grid">
+                            <div class="field-group">
+                                <label for="contact-name">Full name</label>
+                                <input type="text" id="contact-name" name="contact-name" placeholder="e.g. Thabo Mokoena" required>
+                            </div>
+                            <div class="field-group">
+                                <label for="contact-email">Email address</label>
+                                <input type="email" id="contact-email" name="contact-email" placeholder="you@example.com" required>
+                            </div>
+                        </div>
+                        <div class="field-group">
+                            <label for="old-age-home-request">Retirement village name</label>
+                            <input type="text" id="old-age-home-request" name="old-age-home-request" placeholder="Name of your retirement village" required>
+                        </div>
+                        <div class="field-group">
+                            <label for="contact-message">How can we help? <span>(optional)</span></label>
+                            <textarea id="contact-message" name="contact-message" rows="4" placeholder="Tell us about your community or preferred workshop topics."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit"><i class="fa-solid fa-paper-plane"></i> Send message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <span class="footer-title"><i class="fa-solid fa-shield-heart"></i> SilverAssist</span>
+            <p class="footer-note">An INL 370 information literacy project, built to help older adults browse, evaluate, and share information online with confidence.</p>
+        </div>
+    </footer>
+
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,af,zu',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- Link to your local JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
