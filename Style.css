@@ -95,6 +95,29 @@ body.high-contrast .nav-link:hover {
     color: #000000;
 }
 
+/* Reserve yellow for clickable elements only (buttons, active nav, borders).
+   Everything else — headings, labels, icons — stays plain white so the
+   page doesn't feel like it's entirely yellow. */
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast .eyebrow,
+body.high-contrast .team-name,
+body.high-contrast .stat-item strong,
+body.high-contrast .contact-email,
+body.high-contrast .logo,
+body.high-contrast .btn-secondary,
+body.high-contrast .hero-cta-group .btn-primary {
+    color: #ffffff !important;
+}
+
+/* .btn-secondary and the hero button keep a visible border so they still
+   read clearly as buttons once their text goes white instead of yellow. */
+body.high-contrast .btn-secondary,
+body.high-contrast .hero-cta-group .btn-primary {
+    border-color: #ffffff;
+}
+
 * { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -541,7 +564,7 @@ body > .skiptranslate {
 .btn-primary:hover { background: var(--primary-dark); filter: none; }
 
 .btn-secondary {
-    background: white;
+    background: var(--card-bg);
     color: var(--primary-color);
     border-color: var(--border-color);
 }
@@ -549,10 +572,10 @@ body > .skiptranslate {
 
 /* Hero-only variants — solid white / outlined, for contrast on the navy hero */
 .hero-cta-group .btn-primary {
-    background: white;
+    background: var(--card-bg);
     color: var(--primary-color);
 }
-.hero-cta-group .btn-primary:hover { background: rgba(255, 255, 255, 0.92); }
+.hero-cta-group .btn-primary:hover { background: var(--primary-tint); }
 
 .hero-cta-group .btn-secondary {
     background: var(--secondary-color);
@@ -1281,6 +1304,9 @@ body.high-contrast .btn-quiet { border-color: var(--border-color); }
 
     /* Quiz category buttons: full-width, easier to tap */
     #quiz-category-selector .btn { display: block; width: 100%; }
+
+    /* Icon callout grid: fewer columns so labels don't crowd on phones */
+    .icon-callout-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
 }
 
 @media (max-width: 480px) {
@@ -1295,6 +1321,8 @@ body.high-contrast .btn-quiet { border-color: var(--border-color); }
     .action-form-panel { padding: 22px 18px; }
     .team-photo-wrapper { width: 68px; height: 68px; }
     .form-heading { flex-wrap: wrap; }
+    .icon-callout-grid { grid-template-columns: 1fr 1fr; }
+    .icon-callout-glyph { width: 52px; height: 52px; font-size: 1.5em; }
 }
 
 /* ---------- About Us page ---------- */
