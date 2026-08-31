@@ -69,10 +69,10 @@ body.high-contrast {
     --bg-color: #000000;
     --card-bg: #000000;
     --header-bg: #000000;
-    --primary-color: #ffff00;
-    --primary-dark: #ffff00;
-    --secondary-color: #00ffff;
-    --secondary-dark: #00ffff;
+    /* Navy and teal brand colours are intentionally NOT remapped here —
+       buttons, active nav links, and the footer stay their normal navy/
+       teal, just on a black page background instead of white. Yellow is
+       reserved purely for the keyboard focus outline below. */
     --primary-tint: #222222;
     --secondary-tint: #222222;
     --text-color: #ffffff;
@@ -84,20 +84,27 @@ body.high-contrast {
 
 body.high-contrast .accessibility-bar {
     background: #000000;
-    border-bottom-color: #ffff00;
+    border-bottom-color: #ffffff;
 }
 
-body.high-contrast .btn-primary,
-body.high-contrast .nav-link.active,
-body.high-contrast .nav-link:hover {
-    background: #ffff00;
-    border-color: #ffff00;
-    color: #000000;
+/* "Listen to Page" normally uses the amber/yellow accent — swap it for a
+   plain white outline in high contrast so yellow stays reserved for focus. */
+body.high-contrast .acc-btn.highlight-acc {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+body.high-contrast .acc-btn.highlight-acc:hover {
+    background: rgba(255, 255, 255, 0.28);
 }
 
-/* Reserve yellow for clickable elements only (buttons, active nav, borders).
-   Everything else — headings, labels, icons — stays plain white so the
-   page doesn't feel like it's entirely yellow. */
+/* .btn-primary and .nav-link.active/:hover already use white text by
+   default (see their base rules), so once --primary-color stays navy
+   instead of turning yellow, they render correctly with no extra rules. */
+
+/* Some elements use navy/teal text color directly (not as a button
+   background). On the new black page background that text would be
+   almost invisible, so it's forced to white here for readability. */
 body.high-contrast h1,
 body.high-contrast h2,
 body.high-contrast h3,
@@ -106,16 +113,56 @@ body.high-contrast .team-name,
 body.high-contrast .stat-item strong,
 body.high-contrast .contact-email,
 body.high-contrast .logo,
-body.high-contrast .btn-secondary,
-body.high-contrast .hero-cta-group .btn-primary {
+body.high-contrast #final-score,
+body.high-contrast .example-box .example-label,
+body.high-contrast .form-icon,
+body.high-contrast #page-aboutus .card a {
     color: #ffffff !important;
 }
 
-/* .btn-secondary and the hero button keep a visible border so they still
-   read clearly as buttons once their text goes white instead of yellow. */
+/* .btn-secondary and the hero's outlined button have a black background
+   in high contrast (see .btn-secondary rule), so their navy text also
+   needs to switch to white, with a white border so they still read as
+   buttons rather than plain text. */
 body.high-contrast .btn-secondary,
 body.high-contrast .hero-cta-group .btn-primary {
+    color: #ffffff !important;
     border-color: #ffffff;
+}
+
+/* Hover states that reference the accent colour directly — keep them
+   navy/white instead of flashing yellow. */
+body.high-contrast .topic-fact .btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+/* Site footer's accent top border — stays white, not yellow. */
+body.high-contrast .site-footer {
+    border-top-color: #ffffff;
+}
+
+/* The About Us page's card, hero strip, stat boxes, and team cards use
+   hardcoded light backgrounds that don't respond to theme variables, so
+   without this override they'd stay light — making the now-white text
+   above invisible. This brings the whole page in line with high contrast. */
+body.high-contrast #page-aboutus .card,
+body.high-contrast .aboutus-hero,
+body.high-contrast .stat-item,
+body.high-contrast .team-card {
+    background: #000000;
+    border-color: #ffffff;
+}
+body.high-contrast .team-card::before {
+    background: #ffffff;
+}
+body.high-contrast .team-photo-wrapper {
+    border-color: #ffffff;
+}
+
+/* This warning callout also uses a hardcoded light background — same fix. */
+body.high-contrast .step-note-important {
+    background: #000000;
+    color: #ffffff;
 }
 
 * { box-sizing: border-box; }
