@@ -51,12 +51,12 @@
 
             <!-- Navigation Links -->
             <nav class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link active" onclick="navigateTo('home')"><i class="fa-solid fa-house"></i> <span data-i18n="home">Home</span></a>
-                <a href="#aboutus" class="nav-link" onclick="navigateTo('aboutus')"><i class="fa-solid fa-laptop"></i> <span data-i18n="aboutContact">About Us and Contact</span></a>
+                <a href="#home" class="nav-link active" data-page="home" onclick="navigateTo('home')"><i class="fa-solid fa-house"></i> <span data-i18n="home">Home</span></a>
+                <a href="#aboutus" class="nav-link" data-page="aboutus" onclick="navigateTo('aboutus')"><i class="fa-solid fa-laptop"></i> <span data-i18n="aboutContact">About Us and Contact</span></a>
         
-                 <a href="#about" class="nav-link" onclick="navigateTo('about')"><i class="fa-solid fa-book-open"></i> <span data-i18n="informationEthics">Information Ethics</span></a>
-                     <a href="#safety" class="nav-link" onclick="navigateTo('safety')"><i class="fa-solid fa-user-shield"></i> <span data-i18n="startLearning">Start learning</span></a>
-                     <a href="#linkchecker" class="nav-link" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-robot"></i> <span data-i18n="scamChecker">Scam Checker</span></a>
+                 <a href="#about" class="nav-link" data-page="about" onclick="navigateTo('about')"><i class="fa-solid fa-book-open"></i> <span data-i18n="informationEthics">Information Ethics</span></a>
+                     <a href="#safety" class="nav-link" data-page="safety" onclick="navigateTo('safety')"><i class="fa-solid fa-user-shield"></i> <span data-i18n="startLearning">Start learning</span></a>
+                     <a href="#linkchecker" class="nav-link" data-page="linkchecker" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-robot"></i> <span data-i18n="scamChecker">Scam Checker</span></a>
             
             </nav>
 
@@ -155,7 +155,7 @@
 
             <div class="team-card">
                 <div class="team-photo-wrapper">
-                    <img src="team4.jpg" alt="Team Member 4" class="team-photo">
+                    <img src="team4.jpeg" alt="Team Member 4" class="team-photo">
                 </div>
                 <h3 class="team-name">Jade Moore</h3>
                 <p class="team-role">Research and documentation head</p>
@@ -295,9 +295,9 @@
                 <button class="btn btn-primary" onclick="navigateTo('facebook')">Learn Facebook</button>
             </div>
             <div class="card">
-                <h2><i class="fa-solid fa-clipboard-question"></i> Quiz 4: Useful Apps for Everyday Life</h2>
+                <h2><i class="fa-solid fa-clipboard-question"></i> Quiz : Useful Apps for Everyday Life</h2>
                 <p>Test your knowledge of everyday apps like banking, Maps, WhatsApp, and grocery delivery tools.</p>
-                <button class="btn btn-primary" onclick="openDigitalSkillsQuiz()">Take Quiz 4</button>
+                <button class="btn btn-primary" onclick="openDigitalSkillsQuiz()">Take Quiz </button>
             </div>
             <div class="card">
                 <h2><i class="fa-solid fa-heart"></i> Remember</h2>
@@ -472,11 +472,17 @@
         </section>
 
         <section id="page-quiz2" class="page-section" hidden>
+           
             <div id="quiz-page-quiz2"></div>
         </section>
 
         <section id="page-quiz3" class="page-section" hidden>
             <div id="quiz-page-quiz3"></div>
+        </section>
+
+        <!-- QUIZ 4 PAGE -->
+        <section id="page-quiz4" class="page-section" hidden>
+            <div id="quiz-page-quiz4"></div>
         </section>
 
         <!-- 8. RESOURCES SECTION -->
@@ -534,12 +540,13 @@
                     <li class="step-item">
                         <span class="step-number">4</span>
                         <p><strong>Choose the correct app.</strong> You will see a list of apps. Check the name and picture of the app carefully before downloading it, then tap the app you want.</p>
-                    <div class="example-box"><span class="example-label">Example</span>For WhatsApp, look for the app with the name <strong>WhatsApp Messenger</strong> and a green icon with a white speech bubble and telephone inside. <img class="step-image" src="searching.png" alt="searching" width="300" height="300"></div>
+                    <div class="example-box"><span class="example-label">Example</span>For WhatsApp, look for the app with the name <strong>WhatsApp Messenger</strong> and a green icon with a white speech bubble and telephone inside.
+                         <img class="step-image" src="searching.png" alt="searching" width="300" height="300"></div>
                     </li>
                     <li class="step-item">
                         <span class="step-number">5</span>
                         <p><strong>Download the app.</strong> The app's information page will open. Look for a button that says "Get", "Install", or has a download icon, and tap it.</p>
-                        <img class="step-image" src="intall.png" alt="Download app" width="300" height="300">
+                        <img class="step-image" src="intall.png" alt="Download app" width="500" height="500">
                     </li>
                     <li class="step-item">
                         <span class="step-number">6</span>
@@ -754,6 +761,7 @@
                 <span class="eyebrow"><i class="fa-solid fa-envelope"></i> Digital Skills</span>
                 <h1><span class="app-icon app-icon-gmail app-icon-lg"><i class="fa-solid fa-envelope"></i></span> Gmail</h1>
                 <p>Gmail is an email service provided by Google. You can use Gmail to:</p>
+                <img class="step-image" src="Gmail-icon.png" alt="Gmail logo" width="200" height="200">
                 <ul class="capability-list">
                     <li><i class="fa-solid fa-paper-plane"></i> Send messages</li>
                     <li><i class="fa-solid fa-inbox"></i> Receive messages</li>
@@ -890,6 +898,7 @@
                 <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
                 <span class="eyebrow"><i class="fa-brands fa-google"></i> Digital Skills</span>
                 <h1><span class="app-icon app-icon-google app-icon-lg"><i class="fa-brands fa-google"></i></span> How to Use Google Search</h1>
+                <img class="step-image" src="Google-icon.png" alt="Google logo" width="200" height="200">
                 <p>Google is a search engine. You can use Google to find:</p>
                 <ul class="capability-list">
                     <li><i class="fa-solid fa-circle-info"></i> Information</li>
@@ -918,6 +927,8 @@
                         <span class="step-number">2</span>
                         <p><strong>Find the search box.</strong> Look for the search box and tap inside it.</p>
                     </li>
+                        <img class="step-image" src="Google-home.png" alt="Search box" width="500" height="500">
+                    
                     <li class="step-item">
                         <span class="step-number">3</span>
                         <p><strong>Type what you want to find.</strong> Type a question or words about what you want to find.</p>
@@ -945,6 +956,7 @@
                 <button class="btn btn-secondary" onclick="navigateTo('skills')"><i class="fa-solid fa-arrow-left"></i> Back to Digital Skills</button>
                 <span class="eyebrow"><i class="fa-brands fa-facebook"></i> Digital Skills</span>
                 <h1><span class="app-icon app-icon-facebook app-icon-lg"><i class="fa-brands fa-facebook-f"></i></span> How to Use Facebook</h1>
+                <img class="step-image" src="Facebook-icon.png" alt="Facebook logo" width="200" height="200">
                 <p>Facebook is a social media platform. You can use Facebook to:</p>
                 <ul class="capability-list">
                     <li><i class="fa-solid fa-people-group"></i> Keep in contact with family and friends</li>

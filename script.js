@@ -587,44 +587,16 @@ function init() {
     section.classList.toggle('active-page', shouldShow);
   });
 
-    setActiveNavLink('home');
-    updateProgress();
-    bindAccessibilityButtons();
-    renderCategoryButtons();
-    renderQuiz();
-    renderQuizPage('quiz1');
-    renderQuizPage('quiz2');
-    renderQuizPage('quiz3');
-    applyFontSize();
-    applyTheme();
-    bindLanguageSelector();
-    bindWorkshopDateSelector();
-    applyLanguage(appState.language);
-
-    window.navigateTo = navigateTo;
-    window.toggleMobileMenu = toggleMobileMenu;
-    window.analyzeLink = analyzeLink;
-    window.nextQuestion = nextQuestion;
-    window.resetQuiz = resetQuiz;
-    window.selectCategory = selectCategory;
-    window.openQuizPage = openQuizPage;
-    window.openDigitalSkillsQuiz = openDigitalSkillsQuiz;
-    window.renderQuizPage = renderQuizPage;
-    window.handleQuizPageAnswer = handleQuizPageAnswer;
-    window.nextQuizPageQuestion = nextQuizPageQuestion;
-    window.resetQuizPage = resetQuizPage;
   setActiveNavLink('home');
   updateProgress();
   bindAccessibilityButtons();
-  renderCategoryButtons();
-  renderQuiz();
-  applyFontSize();
-  applyTheme();
   bindLanguageSelector();
   bindWorkshopDateSelector();
   bindSearchBar();
   bindWorkshopForm();
   bindContactForm();
+  applyFontSize();
+  applyTheme();
   applyLanguage(appState.language);
 
   window.navigateTo = navigateTo;
@@ -633,6 +605,12 @@ function init() {
   window.nextQuestion = nextQuestion;
   window.resetQuiz = resetQuiz;
   window.selectCategory = selectCategory;
+  window.openQuizPage = openQuizPage;
+  window.openDigitalSkillsQuiz = openDigitalSkillsQuiz;
+  window.renderQuizPage = renderQuizPage;
+  window.handleQuizPageAnswer = handleQuizPageAnswer;
+  window.nextQuizPageQuestion = nextQuizPageQuestion;
+  window.resetQuizPage = resetQuizPage;
 }
 
 function bindLanguageSelector() {
