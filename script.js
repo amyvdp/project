@@ -8,7 +8,7 @@ const appState = {
 const translations = {
   en: {
     accessibility: 'Accessibility', highContrast: 'High Contrast', listenToPage: 'Listen to Page',
-    home: 'Home', aboutContact: 'About Us and Contact', informationEthics: 'Information Ethics',
+    home: 'Home', aboutContact: 'About Us and Contact',
     startLearning: 'Start learning', scamChecker: 'Scam Checker', searchTopics: 'Search safety topics...',
     heroTitle: 'Navigate the Digital World with Confidence & Safety',
     heroSubtitle: 'SilverAssist empowers older adults to access, evaluate, and share digital information safely and responsibly.',
@@ -16,7 +16,7 @@ const translations = {
   },
   af: {
     accessibility: 'Toeganklikheid', highContrast: 'Hoe kontras', listenToPage: 'Luister na bladsy',
-    home: 'Tuis', aboutContact: 'Oor ons en kontak', informationEthics: 'Inligtingsetiek',
+    home: 'Tuis', aboutContact: 'Oor ons en kontak',
     startLearning: 'Begin leer', scamChecker: 'Bedrogkontroleerder', searchTopics: 'Soek veiligheidsonderwerpe...',
     heroTitle: 'Navigeer die digitale wereld met vertroue en veiligheid',
     heroSubtitle: 'SilverAssist help ouer volwassenes om digitale inligting veilig en verantwoordelik te gebruik, te evalueer en te deel.',
@@ -24,7 +24,7 @@ const translations = {
   },
   zu: {
     accessibility: 'Ukufinyeleleka', highContrast: 'Umehluko omkhulu', listenToPage: 'Lalela ikhasi',
-    home: 'Ikhaya', aboutContact: 'Mayelana nathi nokuxhumana', informationEthics: 'Izimiso zolwazi',
+    home: 'Ikhaya', aboutContact: 'Mayelana nathi nokuxhumana',
     startLearning: 'Qala ukufunda', scamChecker: 'Isihloli sobuqili', searchTopics: 'Sesha izihloko zokuphepha...',
     heroTitle: 'Sebenzisa umhlaba wedijithali ngokuzethemba nangokuphepha',
     heroSubtitle: 'SilverAssist isiza abantu abadala ukuthi bathole, bahlole futhi babelane ngolwazi lwedijithali ngokuphepha nangokuzibophezela.',
@@ -42,25 +42,21 @@ const dailyTips = [
 
 // Page Map
 const pageMap = {
-    home: 'page-home',
-    about: 'page-about',
-    safety: 'page-safety',
-    factcheck: 'page-factcheck',
-    linkchecker: 'page-linkchecker',
-    skills: 'page-skills',
-    quiz: 'page-quiz',
-    quiz1: 'page-quiz1',
-    quiz2: 'page-quiz2',
-    quiz3: 'page-quiz3',
-    resources: 'page-resources',
-    apps: 'page-apps',
-    whatsapp: 'page-whatsapp',
-    gmail: 'page-gmail',
-    googlesearch: 'page-googlesearch',
-    facebook: 'page-facebook',
-    signup: 'page-signup',
-    contact: 'page-contact',
-    aboutus: 'page-aboutus'
+  home: 'page-home',
+  safety: 'page-safety',
+  factcheck: 'page-factcheck',
+  linkchecker: 'page-linkchecker',
+  skills: 'page-skills',
+  quiz: 'page-quiz',
+  resources: 'page-resources',
+  apps: 'page-apps',
+  whatsapp: 'page-whatsapp',
+  gmail: 'page-gmail',
+  googlesearch: 'page-googlesearch',
+  facebook: 'page-facebook',
+  signup: 'page-signup',
+  contact: 'page-contact',
+  aboutus: 'page-aboutus'
 };
 
 // Search index — used to power the global search bar in the header.
@@ -68,7 +64,6 @@ const pageMap = {
 const searchIndex = [
   { keywords: 'home welcome', page: 'home', label: 'Home' },
   { keywords: 'about us contact team university pretoria', page: 'aboutus', label: 'About Us and Contact' },
-  { keywords: 'information ethics literacy', page: 'about', label: 'Information Ethics' },
   { keywords: 'start learning safety stay safe topics', page: 'safety', label: 'Start Learning' },
   { keywords: 'workshop in person sign up retirement home schedule', page: 'factcheck', label: 'In-Person Workshops' },
   { keywords: 'scam checker link checker phishing url analyze', page: 'linkchecker', label: 'Scam Link Checker' },
@@ -590,13 +585,15 @@ function init() {
   setActiveNavLink('home');
   updateProgress();
   bindAccessibilityButtons();
+  renderCategoryButtons();
+  renderQuiz();
+  applyFontSize();
+  applyTheme();
   bindLanguageSelector();
   bindWorkshopDateSelector();
   bindSearchBar();
   bindWorkshopForm();
   bindContactForm();
-  applyFontSize();
-  applyTheme();
   applyLanguage(appState.language);
 
   window.navigateTo = navigateTo;
@@ -605,12 +602,6 @@ function init() {
   window.nextQuestion = nextQuestion;
   window.resetQuiz = resetQuiz;
   window.selectCategory = selectCategory;
-  window.openQuizPage = openQuizPage;
-  window.openDigitalSkillsQuiz = openDigitalSkillsQuiz;
-  window.renderQuizPage = renderQuizPage;
-  window.handleQuizPageAnswer = handleQuizPageAnswer;
-  window.nextQuizPageQuestion = nextQuizPageQuestion;
-  window.resetQuizPage = resetQuizPage;
 }
 
 function bindLanguageSelector() {
@@ -818,17 +809,8 @@ function renderCategoryButtons() {
   const categoryContainer = document.getElementById('quiz-category-selector');
   if (!categoryContainer) return;
 
-  const visibleCategories = Object.keys(quizCategories).filter((key) => key !== 'quiz4');
-
-  if (currentCategory === 'quiz4') {
-    categoryContainer.innerHTML = '';
-    categoryContainer.style.display = 'none';
-    return;
-  }
-
-  categoryContainer.style.display = 'block';
   categoryContainer.innerHTML = '';
-  visibleCategories.forEach((key) => {
+  Object.keys(quizCategories).forEach((key) => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = `btn ${key === currentCategory ? 'btn-primary' : 'btn-outline-secondary'}`;
@@ -850,99 +832,6 @@ function selectCategory(catKey) {
 
   renderCategoryButtons();
   renderQuiz();
-}
-
-function openQuizPage(pageKey) {
-    if (!quizCategories[pageKey]) return;
-    currentCategory = pageKey;
-    quizIndex = 0;
-    quizScore = 0;
-    navigateTo(pageKey);
-    renderQuizPage(pageKey);
-}
-
-function openDigitalSkillsQuiz() {
-    currentCategory = 'quiz4';
-    quizIndex = 0;
-    quizScore = 0;
-    navigateTo('quiz4');
-    renderQuizPage('quiz4');
-}
-
-function renderQuizPage(pageKey) {
-    const container = document.getElementById(`quiz-page-${pageKey}`);
-    if (!container || !quizCategories[pageKey]) return;
-
-    const activeQuiz = quizCategories[pageKey];
-    if (quizIndex >= activeQuiz.questions.length) {
-        container.innerHTML = `
-            <div class="card">
-                <button class="btn btn-secondary" onclick="navigateTo('quiz')"><i class="fa-solid fa-arrow-left"></i> Back to Avoid Scamming</button>
-                <h1>${activeQuiz.title}</h1>
-                <h2>Quiz Completed!</h2>
-                <p>Score: <strong>${quizScore}</strong> / ${activeQuiz.questions.length}</p>
-                <button class="btn btn-primary" onclick="resetQuizPage('${pageKey}')">Retake Quiz</button>
-            </div>
-        `;
-        return;
-    }
-
-    const q = activeQuiz.questions[quizIndex];
-    const optionMarkup = q.options.map((opt, idx) => {
-        return `<button type="button" class="btn btn-outline-primary option-btn" style="display:block;width:100%;margin:8px 0;text-align:left;" onclick="handleQuizPageAnswer('${pageKey}', ${idx})">${opt}</button>`;
-    }).join('');
-
-    container.innerHTML = `
-        <div class="card">
-            <button class="btn btn-secondary" onclick="navigateTo('quiz')"><i class="fa-solid fa-arrow-left"></i> Back to Avoid Scamming</button>
-            <h1>${activeQuiz.title}</h1>
-            <span>Question ${quizIndex + 1} of ${activeQuiz.questions.length}</span>
-            <h2>${q.question}</h2>
-            <div class="options-container">${optionMarkup}</div>
-            <div id="quiz-feedback-${pageKey}" class="quiz-feedback hidden"></div>
-        </div>
-    `;
-}
-
-function handleQuizPageAnswer(pageKey, selectedIndex) {
-    const activeQuiz = quizCategories[pageKey];
-    if (!activeQuiz) return;
-
-    const q = activeQuiz.questions[quizIndex];
-    const feedbackBox = document.getElementById(`quiz-feedback-${pageKey}`);
-    const buttons = document.querySelectorAll(`#quiz-page-${pageKey} .option-btn`);
-
-    buttons.forEach((btn) => btn.disabled = true);
-
-    if (selectedIndex === q.answer) {
-        quizScore++;
-        feedbackBox.className = 'alert alert-success quiz-feedback';
-        feedbackBox.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
-    } else {
-        feedbackBox.className = 'alert alert-danger quiz-feedback';
-        feedbackBox.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
-    }
-
-    feedbackBox.classList.remove('hidden');
-
-    const nextBtn = document.createElement('button');
-    nextBtn.type = 'button';
-    nextBtn.className = 'btn btn-primary mt-3';
-    nextBtn.textContent = quizIndex + 1 < activeQuiz.questions.length ? 'Next Question' : 'See Results';
-    nextBtn.addEventListener('click', () => nextQuizPageQuestion(pageKey));
-    feedbackBox.appendChild(nextBtn);
-}
-
-function nextQuizPageQuestion(pageKey) {
-    quizIndex++;
-    renderQuizPage(pageKey);
-}
-
-function resetQuizPage(pageKey) {
-    quizIndex = 0;
-    quizScore = 0;
-    currentCategory = pageKey;
-    renderQuizPage(pageKey);
 }
 
 function renderQuiz() {
