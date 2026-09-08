@@ -65,7 +65,7 @@ const searchIndex = [
   { keywords: 'home welcome', page: 'home', label: 'Home' },
   { keywords: 'about us contact team university pretoria', page: 'aboutus', label: 'About Us and Contact' },
   { keywords: 'start learning safety stay safe topics', page: 'safety', label: 'Start Learning' },
-  { keywords: 'workshop in person sign up retirement home schedule', page: 'factcheck', label: 'In-Person Workshops' },
+  { keywords: 'workshop in person sign up retirement village schedule', page: 'factcheck', label: 'In-Person Workshops' },
   { keywords: 'scam checker link checker phishing url analyze', page: 'linkchecker', label: 'Scam Link Checker' },
   { keywords: 'digital skills tutorials apps whatsapp gmail google facebook', page: 'skills', label: 'Digital Skills' },
   { keywords: 'quiz avoid scamming test questions', page: 'quiz', label: 'Avoid Scamming Quiz' },
@@ -76,7 +76,7 @@ const searchIndex = [
   { keywords: 'google search searching internet results', page: 'googlesearch', label: 'How to Use Google Search' },
   { keywords: 'facebook social media friends post', page: 'facebook', label: 'How to Use Facebook' },
   { keywords: 'workshop registration sign up form register', page: 'signup', label: 'Workshop Sign-Up' },
-  { keywords: 'contact partner retirement home request message', page: 'contact', label: 'Contact Us' }
+  { keywords: 'contact partner retirement village request message', page: 'contact', label: 'Contact Us' }
 ];
 
 let currentPage = 'home';
@@ -576,8 +576,9 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
   const sections = document.querySelectorAll('.page-section');
+  const initialPage = window.location.hash.slice(1);
   sections.forEach((section) => {
-    const shouldShow = section.id === 'page-home';
+    const shouldShow = section.id === `page-${initialPage}` || (!pageMap[initialPage] && section.id === 'page-home');
     section.hidden = !shouldShow;
     section.classList.toggle('active-page', shouldShow);
   });
@@ -595,6 +596,10 @@ function init() {
   bindWorkshopForm();
   bindContactForm();
   applyLanguage(appState.language);
+  window.addEventListener('hashchange', () => {
+    const pageId = window.location.hash.slice(1);
+    if (pageMap[pageId]) navigateTo(pageId);
+  });
 
   window.navigateTo = navigateTo;
   window.toggleMobileMenu = toggleMobileMenu;
@@ -610,7 +615,7 @@ function bindLanguageSelector() {
 }
 
 function bindWorkshopDateSelector() {
-  const residenceSelector = document.getElementById('old-age-home');
+  const residenceSelector = document.getElementById('retirement-village');
   const dateGroup = document.getElementById('workshop-date-group');
   const dateSelector = document.getElementById('workshop-date');
   if (!residenceSelector || !dateGroup || !dateSelector) return;
@@ -941,6 +946,9 @@ function navigateTo(pageId) {
   });
   currentPage = pageId;
   setActiveNavLink(pageId);
+  if (window.location.hash !== `#${pageId}`) {
+    window.history.replaceState(null, '', `#${pageId}`);
+  }
   window.scrollTo(0, 0);
 }
 
