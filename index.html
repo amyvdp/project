@@ -32,7 +32,8 @@
                 <button id="btn-decrease-font" class="acc-btn" title="Decrease Text Size">A -</button>
                 <button id="btn-reset-font" class="acc-btn" title="Reset Text Size">Normal</button>
                 <button id="btn-increase-font" class="acc-btn" title="Increase Text Size">A +</button>
-                <button id="btn-toggle-theme" class="acc-btn" title="Toggle High Contrast Dark Mode"><i class="fa-solid fa-moon"></i> <span data-i18n="highContrast">High Contrast</span></button>
+                <button id="btn-toggle-dark" class="acc-btn" title="Toggle Dark Mode" aria-pressed="false"><i class="fa-solid fa-moon"></i> <span data-i18n="darkMode">Dark Mode</span></button>
+                <button id="btn-toggle-theme" class="acc-btn" title="Toggle High Contrast" aria-pressed="false"><i class="fa-solid fa-circle-half-stroke"></i> <span data-i18n="highContrast">High Contrast</span></button>
                 <button id="btn-read-aloud" class="acc-btn highlight-acc" title="Read Page Aloud"><i class="fa-solid fa-volume-high"></i> <span data-i18n="listenToPage">Listen to Page</span></button>
             </div>
         </div>
@@ -51,11 +52,11 @@
 
             <!-- Navigation Links -->
             <nav class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link active" onclick="navigateTo('home')"><i class="fa-solid fa-house"></i> <span data-i18n="home">Home</span></a>
-                <a href="#aboutus" class="nav-link" onclick="navigateTo('aboutus')"><i class="fa-solid fa-laptop"></i> <span data-i18n="aboutContact">About Us and Contact</span></a>
+                <a href="#home" data-page="home" class="nav-link active" onclick="navigateTo('home')"><i class="fa-solid fa-house"></i> <span data-i18n="home">Home</span></a>
+                <a href="#aboutus" data-page="aboutus" class="nav-link" onclick="navigateTo('aboutus')"><i class="fa-solid fa-laptop"></i> <span data-i18n="aboutContact">About Us and Contact</span></a>
         
-                     <a href="#safety" class="nav-link" onclick="navigateTo('safety')"><i class="fa-solid fa-user-shield"></i> <span data-i18n="startLearning">Start learning</span></a>
-                     <a href="#linkchecker" class="nav-link" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-robot"></i> <span data-i18n="scamChecker">Scam Checker</span></a>
+                     <a href="#safety" data-page="safety" class="nav-link" onclick="navigateTo('safety')"><i class="fa-solid fa-user-shield"></i> <span data-i18n="startLearning">Start learning</span></a>
+                     <a href="#linkchecker" data-page="linkchecker" class="nav-link" onclick="navigateTo('linkchecker')"><i class="fa-solid fa-robot"></i> <span data-i18n="scamChecker">Scam Checker</span></a>
             
             </nav>
 
@@ -97,10 +98,10 @@
             <!-- Learning Progress Tracker -->
             <div class="card progress-card">
                 <h2><i class="fa-solid fa-chart-line"></i> Your Learning Progress</h2>
-                <div class="progress-bar-container">
+                <div class="progress-bar-container" role="progressbar" aria-label="Course lessons completed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                     <div class="progress-bar" id="learning-progress-bar" style="width: 0%;">0%</div>
                 </div>
-                <p id="progress-status-text">0 of 4 Modules Explored</p>
+                <p id="progress-status-text">0 of 4 lessons completed</p>
             </div>
             </div>
         </section>
@@ -236,15 +237,20 @@
         <section id="page-linkchecker" class="page-section">
             <div class="card scanner-card">
                 <h1>Scam Link Checker</h1>
+                <p>Paste a web address or a message containing a link. We will look for common warning signs. This check cannot prove a website is safe.</p>
                 <div class="input-group">
-                    <input type="text" id="link-input" class="form-input" placeholder="Paste link or text here...">
-                    <button class="btn btn-primary" onclick="analyzeLink()">Analyze Link</button>
+                    <label class="sr-only" for="link-input">Paste a web address or message with a link</label>
+                    <input type="text" id="link-input" class="form-input" inputmode="url" autocomplete="off" aria-describedby="link-check-privacy" placeholder="Paste a link or message here...">
+                    <button id="analyze-link-button" class="btn btn-primary" type="button">Check this link</button>
                 </div>
-                <div id="scan-loading" class="scan-loading hidden">Analyzing security...</div>
-                <div id="scan-result" class="scan-result hidden">
+                <p id="link-check-privacy" class="link-check-privacy"><i class="fa-solid fa-lock" aria-hidden="true"></i> The basic check happens in this page. It does not send your link to a reputation service.</p>
+                <div id="scan-result" class="scan-result hidden" role="status" aria-live="polite" aria-atomic="true">
                     <div id="result-status-badge" class="status-badge">STATUS</div>
                     <h3 id="result-title">Result</h3>
                     <p id="result-explanation">Explanation</p>
+                    <ul id="result-findings" class="scan-findings hidden"></ul>
+                    <p id="result-limit" class="scan-limit"></p>
+                    <button id="google-safe-browsing-button" class="btn btn-secondary hidden" type="button"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Check with Google Safe Browsing</button>
                 </div>
             </div>
         </section>
@@ -287,27 +293,44 @@
         <section id="page-quiz" class="page-section">
             <div class="card">
                 <button class="btn btn-secondary" onclick="navigateTo('safety')"><i class="fa-solid fa-arrow-left"></i> Back to Stay Safe</button>
-                <h1>Safety & Literacy Quiz</h1>
+                <h1>Safer Internet: A Short Course</h1>
+                <p>Work through four short lessons to learn practical ways to stay safe online. Each lesson ends with a practice quiz, feedback, and realistic message simulations.</p>
 
-                <!-- Category Selector Buttons -->
-                <div id="quiz-category-selector" style="margin-top: 15px; margin-bottom: 20px;"></div>
+                <div class="course-overview"><span><i class="fa-solid fa-book-open" aria-hidden="true"></i> 4 short lessons</span><span><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Learn, practise, review</span><span><i class="fa-solid fa-clock" aria-hidden="true"></i> At your own pace</span></div>
+
+                <!-- Lesson cards are filled in by script.js -->
+                <div id="quiz-category-selector"></div>
+
+                <div id="course-lesson" class="course-lesson"></div>
 
                 <div id="quiz-container">
                     <h3 id="quiz-category-title"></h3>
-                    <span id="quiz-question-number">Question 1</span>
-                    <h2 id="quiz-question-text">who do scammers often pretend to be?.</h2>
-                    
-                    <div id="quiz-options-container" class="options-container"></div>
-                    <div id="quiz-feedback-box" class="quiz-feedback hidden">
-                        <div id="feedback-status">Status</div>
-                        <p id="feedback-explanation">Explanation</p>
-                        <button class="btn btn-primary" onclick="nextQuestion()">Next Question</button>
+                    <div id="quiz-progress" class="quiz-progress" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
+                        <div id="quiz-progress-fill" class="quiz-progress-fill"></div>
                     </div>
+                    <span id="quiz-question-number">Question 1</span>
+                    <div id="quiz-visual-container" class="quiz-visual hidden"></div>
+                    <div id="quiz-scenario" class="quiz-scenario hidden" aria-label="Message simulation"></div>
+                    <h2 id="quiz-question-text" tabindex="-1"></h2>
+
+                    <div class="quiz-hint-wrap">
+                        <button id="quiz-hint-button" class="btn btn-secondary quiz-hint-button" type="button" aria-expanded="false" aria-controls="quiz-hint">Need a hint?</button>
+                        <p id="quiz-hint" class="quiz-hint hidden" role="status" aria-live="polite"></p>
+                    </div>
+
+                    <div id="quiz-options-container" class="options-container" role="group" aria-labelledby="quiz-question-text"></div>
+                    <div id="quiz-feedback-box" class="quiz-feedback hidden" role="status" aria-live="polite"></div>
                 </div>
+
                 <div id="quiz-results-container" class="results-container hidden">
-                    <h2>Quiz Completed!</h2>
-                    <p>Score: <span id="final-score">0</span></p>
-                    <button class="btn btn-secondary" onclick="resetQuiz()">Retake Quiz</button>
+                    <h2 id="quiz-results-heading" tabindex="-1">Lesson quiz complete!</h2>
+                    <p class="results-score">You scored <span id="final-score">0</span> out of <span id="max-score">10</span></p>
+                    <p id="results-message" class="results-message"></p>
+                    <div id="results-review" class="results-review hidden"></div>
+                    <div class="results-actions">
+                        <button class="btn btn-secondary" onclick="resetQuiz()"><i class="fa-solid fa-rotate-right"></i> Retake Quiz</button>
+                        <button id="btn-next-quiz" class="btn btn-primary" onclick="goToNextQuiz()"></button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -387,6 +410,19 @@
                 <span class="eyebrow"><i class="fa-brands fa-whatsapp"></i> Digital Skills</span>
                 <h1><span class="app-icon app-icon-whatsapp app-icon-lg"><i class="fa-brands fa-whatsapp"></i></span> How to Use WhatsApp</h1>
                 <p>WhatsApp is a free app used to call, send messages, photos, and voice notes over the internet.</p>
+
+                <figure class="manual-visual">
+                    <figcaption><strong>Practice screen: WhatsApp</strong><span>This is an example screen. Tap a button to see what that area is for. It will not open or send anything.</span></figcaption>
+                    <div class="mock-phone mock-whatsapp">
+                        <div class="mock-status"><span>9:41</span><span><i class="fa-solid fa-signal"></i> <i class="fa-solid fa-wifi"></i> <i class="fa-solid fa-battery-three-quarters"></i></span></div>
+                        <div class="mock-appbar"><strong>WhatsApp</strong><span><i class="fa-solid fa-camera"></i> <i class="fa-solid fa-ellipsis-vertical"></i></span></div>
+                        <div class="mock-search"><i class="fa-solid fa-magnifying-glass"></i> Search chats</div>
+                        <button type="button" class="mock-list-row" data-guide-tip="Tap a person's name to open your conversation. Check the name before sending a private message."><span class="mock-avatar">MJ</span><span><strong>Maria Jones</strong><small>Are we still meeting tomorrow?</small></span><small class="mock-time">9:15</small></button>
+                        <button type="button" class="mock-list-row" data-guide-tip="A group chat lets several people share messages together. Remember that everyone in the group may see what you send."><span class="mock-avatar mock-avatar-green"><i class="fa-solid fa-people-group"></i></span><span><strong>Family group</strong><small>Photo · Yesterday</small></span><small class="mock-time">Yesterday</small></button>
+                        <div class="mock-bottom-nav"><button type="button" data-guide-tip="Chats is where you read and send messages to people and groups."><i class="fa-solid fa-comment"></i><span>Chats</span></button><button type="button" data-guide-tip="Updates is where you can view status updates shared by your contacts."><i class="fa-regular fa-circle"></i><span>Updates</span></button><button type="button" data-guide-tip="Calls shows your WhatsApp voice and video calls."><i class="fa-solid fa-phone"></i><span>Calls</span></button></div>
+                    </div>
+                    <p class="manual-visual-tip" aria-live="polite">Tap a name or button in the example to learn what it does.</p>
+                </figure>
 
                 <ol class="step-list">
                     <li class="step-item">
@@ -474,6 +510,18 @@
                 <h1><span class="app-icon app-icon-gmail app-icon-lg"><i class="fa-solid fa-envelope"></i></span> Writing & Sending Gmail</h1>
                 <p>Gmail is an online mailing service where a person can send messages, files, and more to others' email accounts. There are other services like iCloud or Yahoo Mail, but these instructions use Gmail. We'll start by creating an account — if you already have a Gmail account, skip ahead to "Writing and sending emails in Gmail" below.</p>
 
+                <figure class="manual-visual">
+                    <figcaption><strong>Practice screen: writing an email</strong><span>These example fields are not connected to email. Tap a part to learn about it; nothing will be sent.</span></figcaption>
+                    <div class="mock-mail">
+                        <div class="mock-mail-toolbar"><button type="button" data-guide-tip="Compose opens a blank email for you to write."><i class="fa-solid fa-arrow-left"></i></button><strong>New message</strong><button type="button" data-guide-tip="The paperclip is used to attach a file. Only attach files you meant to share."><i class="fa-solid fa-paperclip"></i></button></div>
+                        <button type="button" class="mock-mail-field" data-guide-tip="To: enter the email address of the person who should receive your message."><span>To</span><span>name@example.com</span><i class="fa-solid fa-chevron-down"></i></button>
+                        <button type="button" class="mock-mail-field" data-guide-tip="Subject: write a few words that tell the reader what the email is about."><span>Subject</span><span>Meeting tomorrow</span></button>
+                        <button type="button" class="mock-mail-body" data-guide-tip="Message: write your email here. Check that it is going to the right person before sending.">Hello, I would like to confirm our meeting time.</button>
+                        <div class="mock-mail-actions"><button type="button" class="mock-send" data-guide-tip="Send delivers the email. Check the To address and message first."><i class="fa-solid fa-paper-plane"></i> Send</button><span><i class="fa-solid fa-trash"></i></span></div>
+                    </div>
+                    <p class="manual-visual-tip" aria-live="polite">Tap To, Subject, Message, or Send to see what each part means.</p>
+                </figure>
+
                 <h2>Creating a Google account</h2>
                 <ol class="step-list">
                     <li class="step-item">
@@ -558,6 +606,18 @@
                 <h1><span class="app-icon app-icon-google app-icon-lg"><i class="fa-brands fa-google"></i></span> How to Use Google Search</h1>
                 <p>Google is a search engine platform, meaning that on this app or website you can search for information or find other websites.</p>
 
+                <figure class="manual-visual">
+                    <figcaption><strong>Practice screen: search results</strong><span>Example results only. Tap a result to learn what to check before opening a website.</span></figcaption>
+                    <div class="mock-search-page">
+                        <div class="mock-google-word"><span>G</span>oogle</div>
+                        <div class="mock-google-search"><i class="fa-solid fa-magnifying-glass"></i> clinic opening hours</div>
+                        <button type="button" class="mock-result mock-ad" data-guide-tip="Ad means the result is a paid advertisement. It may be useful, but it is not automatically the official website."><span class="mock-result-label">Ad · Advertisement</span><strong>Clinic information</strong><small>Example sponsored result</small></button>
+                        <button type="button" class="mock-result" data-guide-tip="Read the website name and result description. For health, bank, or government information, prefer the organisation's official site."><span class="mock-result-label">Example official website</span><strong>Clinic opening hours and contact details</strong><small>Look for the organisation you intended to find.</small></button>
+                        <button type="button" class="mock-result" data-guide-tip="You can return to the results page with your browser's back button if a page does not look right."><span class="mock-result-label">Another result</span><strong>Local services near you</strong><small>Read the details before choosing.</small></button>
+                    </div>
+                    <p class="manual-visual-tip" aria-live="polite">Tap a search result to learn what to look for.</p>
+                </figure>
+
                 <ol class="step-list">
                     <li class="step-item">
                         <span class="step-number">1</span>
@@ -586,6 +646,17 @@
                 <span class="eyebrow"><i class="fa-brands fa-facebook"></i> Digital Skills</span>
                 <h1><span class="app-icon app-icon-facebook app-icon-lg"><i class="fa-brands fa-facebook-f"></i></span> How to Use Facebook</h1>
                 <p>Facebook is an online social media platform that lets you have a profile page, add friends, and share messages and photos to keep your loved ones and friends updated.</p>
+
+                <figure class="manual-visual">
+                    <figcaption><strong>Practice screen: a Facebook post</strong><span>This is a pretend post for practice. Tap a control to learn who may see an action.</span></figcaption>
+                    <div class="mock-facebook">
+                        <div class="mock-fb-top"><span class="mock-fb-logo">f</span><span><i class="fa-solid fa-magnifying-glass"></i></span><span><i class="fa-solid fa-bars"></i></span></div>
+                        <button type="button" class="mock-fb-composer" data-guide-tip="This box starts a post. Only share details or photos you are comfortable sharing with your selected audience."><span class="mock-avatar">AM</span><span>What's on your mind?</span></button>
+                        <div class="mock-fb-post"><div class="mock-fb-author"><span class="mock-avatar mock-avatar-blue">AM</span><span><strong>Example post</strong><small>Shared with Friends</small></span><i class="fa-solid fa-earth-americas"></i></div><p>Enjoying a sunny afternoon with family.</p><div class="mock-fb-reactions"><span>Like</span><span>Comment</span><span>Share</span></div></div>
+                        <div class="mock-fb-actions"><button type="button" data-guide-tip="Like lets people know you appreciate a post. It does not publish a new post on your profile."><i class="fa-regular fa-thumbs-up"></i> Like</button><button type="button" data-guide-tip="Comments are visible to people who can see the post. Do not include private information."><i class="fa-regular fa-comment"></i> Comment</button><button type="button" data-guide-tip="Share can show a post to other people. Check the audience before sharing."><i class="fa-solid fa-share"></i> Share</button></div>
+                    </div>
+                    <p class="manual-visual-tip" aria-live="polite">Tap a button in the example to learn what it does.</p>
+                </figure>
 
                 <h2>Creating your account</h2>
                 <ol class="step-list">
